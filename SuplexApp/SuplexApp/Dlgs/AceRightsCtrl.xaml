@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="SuplexApp.AceRightsCtrl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SuplexApp">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Ace Type"/>
+        <ListBox Grid.Column="0" Grid.Row="1" Name="lstAceType" Margin="0,0,5,0" SelectionChanged="lstAceType_SelectionChanged" />
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Right"/>
+        <ListBox Grid.Column="1" Grid.Row="1" Name="lstRight" SelectionChanged="lstRight_SelectionChanged"/>
+    </Grid>
+</UserControl>

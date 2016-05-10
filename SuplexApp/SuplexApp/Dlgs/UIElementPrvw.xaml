@@ -1,0 +1,193 @@
+﻿<local:PreviewControl x:Class="SuplexApp.UIElementPrvw"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="clr-namespace:SuplexApp"
+                      xmlns:cc="clr-namespace:SuplexApp.Controls"
+                      xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
+                      >
+    <UserControl.Resources>
+        <local:FormattingConverter x:Key="formatter" />
+        <DataTemplate x:Key="DaclAce">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                    <Label Content="{local:FormattedBinding Path=SecurityPrincipal.Name, ValueIfEmpty=Unknown, FormatString='\{0\}, '}"/>
+                    <Label Content="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                    <Label Content="{Binding Path=Right}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Label Content="{local:FormattedBinding Path=Allowed, ValueIfTrue=Allowed, ValueIfFalse=Denied, FormatString='\{0\}, '}"/>
+                    <Label Content="{local:FormattedBinding Path=Inherit, ValueIfTrue=Inheritable, ValueIfFalse=Static}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="SaclAce">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{local:FormattedBinding Path=SecurityPrincipal.Name, ValueIfEmpty=Unknown, FormatString='\{0\}, '}"/>
+                    <Label Content="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                    <Label Content="{Binding Path=Right}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{local:FormattedBinding Path=Allowed, ValueIfTrue=Yes, ValueIfFalse=No, FormatString='Audit Success/Failure: \{0\}/'}"/>
+                    <Label Content="{local:FormattedBinding Path=Denied, ValueIfTrue=Yes, ValueIfFalse=No, FormatString='\{0\}, '}"/>
+                    <Label Content="{local:FormattedBinding Path=Inherit, ValueIfTrue=Inheritable, ValueIfFalse=Static}"/>
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="RightRole">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="{local:FormattedBinding Path=ControlUniqueName, FormatString='\{0\}, '}"/>
+                <Label Content="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                <Label Content="{local:FormattedBinding Path=RightName, FormatString='\{0\}'}"/>
+                <Path Fill="{StaticResource GlyphBrush}" Data="M7,0L14,3.5 7,7 7,4.5 0,4.5 0,2.5 7,2.5z" VerticalAlignment="Center" Margin="2,0,2,0"/>
+                <Label Content="{local:FormattedBinding Path=UIRight, FormatString='UI\\\{0\}'}"/>
+            </StackPanel>
+        </DataTemplate>
+        <HierarchicalDataTemplate x:Key="RightRoleRule" ItemsSource="{Binding Path=RightRoleRules}">
+            <StackPanel>
+                <Label Content="{Binding Path=Name}" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{local:FormattedBinding Path=CompareValue1, ValueIfEmpty=(self.Value), FormatString='\{0\}'}" />
+                    <Label Content="{local:FormattedBinding Path=Operator, FormatString=' [\{0\}] '}" />
+                    <Label Content="{local:FormattedBinding Path=CompareValue2}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{local:FormattedBinding Path=CompareDataType, FormatString='As \{0\}, '}" />
+                    <Label Content="{local:FormattedBinding Path=FailParent, ValueIfTrue=Yes, ValueIfFalse=No, FormatString='Fail Logic Branch: \{0\} '}" />
+                </StackPanel>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+    </UserControl.Resources>
+    <StackPanel>
+        <Expander Margin="0" Header="Properties"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,0" Background="#f0f0f0">
+                    <TextBlock TextBlock.Text="{local:FormattedBinding Path=Description, ValueIfEmpty='(No description provided)'}"
+                               VerticalAlignment="Center" ToolTip="Description" TextWrapping="Wrap" Width="380"/>
+                </StackPanel>
+                <Grid Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="Use Description as Tooltip:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" TextBlock.Text="{local:FormattedBinding Path=DescTooltip, ValueIfTrue=Yes, ValueIfFalse=No}"
+                               VerticalAlignment="Center" ToolTip="Use Description as ToolTip" Margin="0,0,4,0"/>
+                    <Label Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Content="Allow Undeclared:"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" TextBlock.Text="{local:FormattedBinding Path=AllowUndeclared, ValueIfTrue=Yes, ValueIfFalse=No}"
+                               VerticalAlignment="Center" ToolTip="Allow Dynamic UI Elements"/>
+                    <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Content="DataType:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" TextBlock.Text="{local:FormattedBinding Path=DataType, ValueIfEmpty='(Empty)'}"
+                               VerticalAlignment="Center" ToolTip="DataType"/>
+                    <Label Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" Content="Format String:"/>
+                    <TextBlock Grid.Row="1" Grid.Column="3" TextBlock.Text="{local:FormattedBinding Path=FormatString, ValueIfEmpty='(None)'}"
+                               VerticalAlignment="Center" ToolTip="Data Format String"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                    <TextBlock TextBlock.Text="{local:FormattedBinding Path=DataTypeErrMsg, ValueIfEmpty='(None)', FormatString='DataType Err Msg: \{0\}'}"
+                               VerticalAlignment="Center" ToolTip="DataType Error Message" TextWrapping="Wrap"/>
+                </StackPanel>
+            </StackPanel>
+        </Expander>
+        <Expander Margin="0,-1,0,0"
+                  Header="{local:FormattedBinding Path=SecurityDescriptor.Dacl.Count, FormatString='Permissions: \{0\}'}"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <ListBox BorderThickness="0" MaxHeight="200"
+                     Style="{DynamicResource ListBoxGridNoHover}" ItemContainerStyle="{DynamicResource ListItemGridNoHover}"
+                     ItemsSource="{Binding Path=SecurityDescriptor.Dacl}" ItemTemplate="{StaticResource DaclAce}"/>
+        </Expander>
+        <Expander Margin="0,-1,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <!--Header="{local:FormattedBinding Path=SecurityDescriptor.RightBindings.Count, FormatString='Right Bindings: \{0\}'}"-->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{local:FormattedBinding Path=SecurityDescriptor.CompositeRightRuleCount, FormatString='Right Bindings: Rules: \{0\}'}"/>
+                    <TextBlock Text="{local:FormattedBinding Path=SecurityDescriptor.CompositeRightRoleCount, FormatString=', Roles: \{0\}'}"/>
+                </StackPanel>
+            </Expander.Header>
+            <cc:TreeListView x:Name="tlvRB" BorderThickness="0" Margin="0" Height="200"
+                             ItemsSource="{Binding Path=SecurityDescriptor.RightBindings}">
+                <cc:TreeListView.Resources>
+                    <local:RightRoleTemplateSelector x:Key="rightRoleTemplateSelector"/>
+                    <HierarchicalDataTemplate DataType="{x:Type splxApi:RightRoleRule}" ItemsSource="{Binding Path=ChildObjects}"/>
+                    <DataTemplate x:Key="sourceRight">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                            <TextBlock Text="{local:FormattedBinding Path=RightName, FormatString='\{0\}'}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                    <DataTemplate x:Key="sourceToDest">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{local:FormattedBinding Path=UIRight, FormatString='UI\\\{0\}'}" />
+                            <Path Fill="{StaticResource GlyphBrush}" Data="M7,0L14,3.5 7,7 7,4.5 0,4.5 0,2.5 7,2.5z" VerticalAlignment="Center" Margin="2,0,2,0"/>
+                            <TextBlock Text="{Binding Path=ControlUniqueName}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </cc:TreeListView.Resources>
+                <cc:TreeListView.Columns>
+                    <GridViewColumn Header="Condition" Width="200" CellTemplateSelector="{StaticResource rightRoleTemplateSelector}"/>
+                    <!--<GridViewColumn Header="Source" Width="170" CellTemplate="{StaticResource sourceRight}"/>-->
+                    <!--<GridViewColumn Width="200" Header="Destination" CellTemplate="{StaticResource sourceToDest}"/>-->
+                    <GridViewColumn DisplayMemberBinding="{local:FormattedBinding Path=UIRight, FormatString='UI\\\{0\}'}" Header="Destination" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=ControlUniqueName}" Header="Unique Name" Width="115"/>
+                </cc:TreeListView.Columns>
+            </cc:TreeListView>
+        </Expander>
+        <Expander Margin="0,-1,0,0"
+                  Header="{local:FormattedBinding Path=SecurityDescriptor.Sacl.Count, FormatString='Audit: \{0\}'}"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <ListBox BorderThickness="0" MaxHeight="200"
+                     Style="{DynamicResource ListBoxGridNoHover}" ItemContainerStyle="{DynamicResource ListItemGridNoHover}"
+                     ItemsSource="{Binding Path=SecurityDescriptor.Sacl}" ItemTemplate="{StaticResource SaclAce}"/>
+        </Expander>
+        <Expander Margin="0,-1,0,0" Visibility="Collapsed"
+                  Header="{local:FormattedBinding Path=SecurityDescriptor.RightRoles.Count, FormatString='Right Roles: \{0\}'}"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <ListBox BorderThickness="0" MaxHeight="200"
+                     Style="{DynamicResource ListBoxGridNoHover}" ItemContainerStyle="{DynamicResource ListItemGridNoHover}"
+                     ItemsSource="{Binding Path=SecurityDescriptor.RightRoles}" ItemTemplate="{StaticResource RightRole}"/>
+        </Expander>
+        <Expander Margin="0,-1,0,0" Visibility="Collapsed"
+                  Header="{local:FormattedBinding Path=SecurityDescriptor.iRightRoleRules.Count, FormatString='Right Role Rules: \{0\}'}"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <TreeView Margin="0" BorderThickness="0"
+                      ItemTemplate="{StaticResource RightRoleRule}" ItemsSource="{Binding Path=SecurityDescriptor.iRightRoleRules}"/>
+        </Expander>
+        <Expander Margin="0,-1,0,0"
+                  Header="{local:FormattedBinding Path=SecurityDescriptor.IsDefaultInheritanceSettings, FormatString='Inheritance Settings: \{0\}', ValueIfTrue=Default, ValueIfFalse=Modified}"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:UIElementPrvw}}, Path=IsDetailExpanded, UpdateSourceTrigger=Explicit}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Inherit Permissions:" Margin="3,5,10,5"/>
+                <TextBlock Grid.Column="1" Margin="0,5,0,0"
+                           Text="{local:FormattedBinding Path=SecurityDescriptor.DaclInherit, ValueIfTrue=Yes, ValueIfFalse=No}"
+                           Foreground="{local:FormattedBinding Path=SecurityDescriptor.DaclInherit, ValueIfTrue=DarkBlue, ValueIfFalse=Red}"/>
+
+                <Label Content="Inherit Audit:" Margin="3,0,10,5" Grid.Column="0" Grid.Row="1"/>
+                <TextBlock Grid.Column="1" Grid.Row="1"
+                           Text="{local:FormattedBinding Path=SecurityDescriptor.SaclInherit, ValueIfTrue=Yes, ValueIfFalse=No}"
+                           Foreground="{local:FormattedBinding Path=SecurityDescriptor.SaclInherit, ValueIfTrue=DarkBlue, ValueIfFalse=Red}"/>
+
+                <Label Content="Audit Filter:" Margin="3,0,10,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="2"/>
+                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="2"
+                           Text="{local:FormattedBinding Path=SecurityDescriptor.SaclAuditTypeFilter}"/>
+            </Grid>
+        </Expander>
+    </StackPanel>
+</local:PreviewControl>

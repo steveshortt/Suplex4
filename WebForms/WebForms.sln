@@ -1,0 +1,64 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForms", "WebForms.csproj", "{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "splSuplexWebForms", "..\..\..\Samples\splSuplexWebForms\", "{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
+		ProjectReferences = "{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}|Suplex.WebForms.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/splSuplexWebForms"
+		Debug.AspNetCompiler.PhysicalPath = "..\..\..\Samples\splSuplexWebForms\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\splSuplexWebForms\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/splSuplexWebForms"
+		Release.AspNetCompiler.PhysicalPath = "..\..\..\Samples\splSuplexWebForms\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\splSuplexWebForms\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "3632"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9} = {E06BFE94-5BA5-469C-96E3-8B32E1622DF9}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Release|.NET.ActiveCfg = Release|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E06BFE94-5BA5-469C-96E3-8B32E1622DF9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Debug|.NET.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Debug|.NET.Build.0 = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Release|.NET.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Release|.NET.Build.0 = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{DA51D798-2DA6-4CCE-8020-937EE5E85B6C}.Release|Mixed Platforms.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

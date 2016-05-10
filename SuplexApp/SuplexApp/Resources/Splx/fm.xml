@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SuplexStore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UIElements>
+    <UIElement>
+      <Id>2ee2ab1b-c54e-4312-b6d6-db24d090711c</Id>
+      <Name>fmEditor</Name>
+      <ControlType>UserControl</ControlType>
+      <UniqueName>fmEditor</UniqueName>
+      <DescTooltip>false</DescTooltip>
+      <AllowUndeclared>false</AllowUndeclared>
+      <DataType>Empty</DataType>
+      <ValidationRules />
+      <FillMaps />
+      <UIElements>
+        <UIElement>
+          <Id>22b8912e-3299-4686-a09c-8cb4e95dae14</Id>
+          <Name>txtName</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtName</UniqueName>
+          <Desc>The friendly name for the Validation Rule, used for display purposes only.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>String</DataType>
+          <ValidationRules>
+            <ValidationRule>
+              <Id>20fcf13a-e35d-4d9d-abd2-b5c07b2db1f5</Id>
+              <Name>Required</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{1,50}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Name is required and limited to 50 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+        </UIElement>
+        <UIElement>
+          <Id>24eafd50-a9cb-4d78-b8f6-6ff90a83f66a</Id>
+          <Name>cmbEventBinding</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbEventBinding</UniqueName>
+          <Desc>The event on which this rule will fire.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <ValidationRules>
+            <ValidationRule>
+              <Id>732d9915-2a7b-468b-a2be-9c37e8f98068</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbEventBinding-&gt;SelectedIndex</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>-1</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Event Binding is required.</ErrorMessage>
+              <CompareDataType>Int32</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+        </UIElement>
+        <UIElement>
+          <Id>6c929f47-8b29-4f7b-a61b-266549005bc5</Id>
+          <Name>txtSortOrder</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtSortOrder</UniqueName>
+          <Desc>Enforces processing order of sibling validation rules.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Int32</DataType>
+          <DataTypeErrMsg>Sort Order must be an integer number.</DataTypeErrMsg>
+          <ValidationRules>
+            <ValidationRule>
+              <Id>c8dbf38c-1906-441d-aa6a-559b78ebd81e</Id>
+              <Name>Required</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\d]{1,8}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Sort order is required, must be a number, and must be eight digits or less.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+        </UIElement>
+        <UIElement>
+          <Id>87ecf2c0-e28e-4f86-822e-5707e52c4145</Id>
+          <Name>cmbExpressionType</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbExpressionType</UniqueName>
+          <DescTooltip>false</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <ValidationRules>
+            <ValidationRule>
+              <Id>4edffc1b-6bd7-407c-81d5-019e43214e14</Id>
+              <Name>ExpressionType &lt;&gt; None</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>None</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>false</FailParent>
+              <ErrorMessage />
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules>
+                <ValidationRule>
+                  <Id>6d4ce142-b4e3-487b-b82a-9da5228da07d</Id>
+                  <Name>Expression Required</Name>
+                  <CompareValue1>txtExpression-&gt;Text</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>^[\w\W]{1,500}$</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>RegularExpression</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>If Expression Type is not equal to "None," Expression is required.</ErrorMessage>
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl>txtExpression</ErrorControl>
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <ElseMaps />
+              <ElseRules>
+                <ValidationRule>
+                  <Id>b33ce62a-74c6-4015-89df-924d575cdead</Id>
+                  <Name>Expression must be empty</Name>
+                  <CompareValue1>txtExpression-&gt;Text</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>^[\w\W]{0}$</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>RegularExpression</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>Because ExpressionType equals "None," Expression should be empty.</ErrorMessage>
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl>txtExpression</ErrorControl>
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ElseRules>
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+        </UIElement>
+      </UIElements>
+    </UIElement>
+  </UIElements>
+</SuplexStore>

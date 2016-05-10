@@ -1,0 +1,274 @@
+﻿<UserControl x:Class="SuplexApp.UIElementDlg"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:local="clr-namespace:SuplexApp"
+             xmlns:cc="clr-namespace:SuplexApp.Controls"
+             xmlns:splx="clr-namespace:Suplex.Wpf;assembly=Suplex.Wpf"
+             xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
+             Loaded="UserControl_Loaded"
+             >
+    <UserControl.Resources>
+        <local:UieTreeDataTemplateSelector x:Key="UieTreeTemplateSelector"/>
+
+        <HierarchicalDataTemplate x:Key="UieItem" ItemsSource="{Binding Path=ChildObjects}">
+            <StackPanel Orientation="Vertical">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_uie.png" Margin="0,0,4,0"
+                               Visibility="{local:FormattedBinding Path=SecurityDescriptor.IsDefaultSecuritySettings, ValueIfTrue=Visible, ValueIfFalse=Collapsed}"/>
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_uie_secure.png" Margin="0,0,4,0"
+                               Visibility="{local:FormattedBinding Path=SecurityDescriptor.IsDefaultSecuritySettings, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
+                        <TextBlock Text="{local:FormattedBinding Path=Name, FormatString='\{0\}\\'}" VerticalAlignment="Center" ToolTip="Name"/>
+                        <TextBlock Text="{local:FormattedBinding Path=UniqueName}" VerticalAlignment="Center" ToolTip="UniqueName" Margin="0,0,0,0" FontWeight="Bold"/>
+                        <TextBlock Text="{local:FormattedBinding Path=ControlType, FormatString='[\{0\}]'}" VerticalAlignment="Center" ToolTip="ControlType" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/gear_menu.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="13" Width="23" VerticalAlignment="Center"
+                               MouseUp="ImageToggleMenu_Click"
+                               Visibility="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                </Grid>
+                <!--<Popup IsOpen="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}}"
+                       Placement="Top" StaysOpen="False" PopupAnimation="Fade">
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/10pxGreenDot.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="25" Width="25" VerticalAlignment="Center"
+                               MouseUp="ImagePopup_Click"/>
+                </Popup>-->
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="RuleItem" ItemsSource="{Binding Path=ChildObjects}">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_vr.png" Margin="0,0,4,0"/>
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/overlay_x.png" Margin="-26,0,0,0"
+                                   Visibility="{local:FormattedBinding Path=FailParent, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                        <TextBlock Text="{local:FormattedBinding Path=Name, FormatString='\{0\}'}" VerticalAlignment="Center" ToolTip="Name"/>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/gear_menu.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="13" Width="23" VerticalAlignment="Center"
+                               MouseUp="ImageToggleMenu_Click"
+                               Visibility="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                </Grid>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <HierarchicalDataTemplate x:Key="ElseRuleItem" ItemsSource="{Binding Path=ChildObjects}">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_er.png" Margin="0,0,4,0"/>
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/overlay_x.png" Margin="-26,0,0,0"
+                               Visibility="{local:FormattedBinding Path=FailParent, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                        <TextBlock Text="{local:FormattedBinding Path=Name, FormatString='\{0\}'}" VerticalAlignment="Center" ToolTip="Name"/>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/gear_menu.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="13" Width="23" VerticalAlignment="Center"
+                               MouseUp="ImageToggleMenu_Click"
+                               Visibility="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                </Grid>
+            </StackPanel>
+        </HierarchicalDataTemplate>
+        <DataTemplate x:Key="FillMapItem">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_fm.png" Margin="0,0,4,0"/>
+                        <TextBlock Text="{local:FormattedBinding Path=Name, FormatString='\{0\}'}" VerticalAlignment="Center" ToolTip="Name"/>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/gear_menu.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="13" Width="23" VerticalAlignment="Center"
+                               MouseUp="ImageToggleMenu_Click"
+                               Visibility="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ElseMapItem">
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Image Source="/SuplexAdmin;component/Resources/UIElement/tree_em.png" Margin="0,0,4,0"/>
+                        <TextBlock Text="{local:FormattedBinding Path=Name, FormatString='\{0\}'}" VerticalAlignment="Center" ToolTip="Name"/>
+                    </StackPanel>
+                    <Image Grid.Column="1" Source="/SuplexAdmin;component/Resources/gear_menu.png"
+                               Opacity=".35" Margin="10,0,1,0" Height="13" Width="23" VerticalAlignment="Center"
+                               MouseUp="ImageToggleMenu_Click"
+                               Visibility="{local:FormattedBinding Path=IsMouseOnItem, RelativeSource={RelativeSource AncestorType={x:Type local:SuplexTreeViewItem}}, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ToolBarTray>
+            <ToolBar Name="tbMain">
+                <cc:SplitButton x:Name="tbbSaveSplxFileStore" Style="{DynamicResource ToolBarSplitButtonStyle}"
+                                Image="{local:FormattedBinding UIElementIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/tree_uie.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/tree_uie_disabled.png'}"
+                                Text="New UI Element" ToolTip="New UI Element" ObjectType="UIElement"
+                                IsMainButtonEnabled="{Binding UIElementIsEnabled}"
+                                Click="AddNewObject_Click">
+                    <cc:SplitButton.DropDownContextMenu>
+                        <ContextMenu>
+                            <local:SuplexMenuItem Header="New Validation Rule" ObjectType="ValidationRule"
+                                                  Click="AddNewObject_Click"
+                                                  Image="{local:FormattedBinding ValidationRuleIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/tree_vr.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/tree_vr_disabled.png'}"
+                                                  IsEnabled="{Binding ValidationRuleIsEnabled}" />
+                            <local:SuplexMenuItem Header="New Else Rule" ObjectType="ElseRule"
+                                                  Click="AddNewObject_Click"
+                                                  Image="{local:FormattedBinding ElseRuleIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/tree_er.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/tree_er_disabled.png'}"
+                                                  IsEnabled="{Binding ElseRuleIsEnabled}" />
+                            <local:SuplexMenuItem Header="New Fill Map" ObjectType="FillMap"
+                                                  Click="AddNewObject_Click"
+                                                  Image="{local:FormattedBinding FillMapIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/tree_fm.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/tree_fm_disabled.png'}"
+                                                  IsEnabled="{Binding FillMapIsEnabled}" />
+                            <local:SuplexMenuItem Header="New Else Map" ObjectType="ElseMap"
+                                                  Click="AddNewObject_Click"
+                                                  Image="{local:FormattedBinding ElseMapIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/tree_em.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/tree_em_disabled.png'}"
+                                                  IsEnabled="{Binding ElseMapIsEnabled}" />
+                        </ContextMenu>
+                    </cc:SplitButton.DropDownContextMenu>
+                </cc:SplitButton>
+                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                        Click="mnuEditItem_Click" ToolTip="Edit Selected"
+                        IsEnabled="{Binding EditIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding EditIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_edit_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_edit_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Edit" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                        Click="DeleteObject_Click" ToolTip="Delete Selected"
+                        IsEnabled="{Binding DeleteIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding DeleteIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_delete_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_delete_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Delete" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                        Click="mnuToggleDetail_Click" ToolTip="Preview"
+                        IsEnabled="{Binding PreviewIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding PreviewIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_preview_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_preview_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Preview" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                        Click="ExpandAll_Click" ToolTip="Expand All Children"
+                        IsEnabled="{Binding ExpandCollapseIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding ExpandCollapseIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_expand_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_expand_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Expand All" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                        Click="CollapseAll_Click" ToolTip="Collapse All Children"
+                        IsEnabled="{Binding ExpandCollapseIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding ExpandCollapseIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_collapse_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_collapse_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Collapse All" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="475" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0" />
+            </Grid.ColumnDefinitions>
+
+            <local:SuplexTreeView x:Name="tvUie" Grid.Column="0" Margin="0,0,3,0"
+                                  ItemsSource="{Binding Path=UIElements}"
+                                  ItemTemplateSelector="{StaticResource UieTreeTemplateSelector}"
+                                  SelectedItemChanged="tvUie_SelectedItemChanged"
+                                  PreviewMouseLeftButtonDown="tvUie_PreviewMouseLeftButtonDown"
+                                  PreviewMouseRightButtonDown="tvUie_PreviewMouseRightButtonDown"
+                                  AllowDrop="True"
+                                  ScrollViewer.ScrollChanged="tvUie_ScrollChanged"
+                                  MouseMove="tvUie_MouseMove"
+                                  DragEnter="tvUie_CheckDropTarget" DragLeave="tvUie_CheckDropTarget"
+                                  DragOver="tvUie_CheckDropTarget" Drop="tvUie_Drop">
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type local:SuplexTreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                        <EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="tvUie_PreviewMouseRightButtonDown"/>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ContextMenu>
+                    <ContextMenu Name="ctxUieTree">
+                        <local:SuplexMenuItem x:Name="mnuEditItem" Header="Edit"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/file_edit_16.png"
+                                              Click="mnuEditItem_Click" Visibility="{Binding EditVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuToggleDetail" Header="Preview"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/file_preview_16.png"
+                                              Click="mnuToggleDetail_Click" Visibility="{Binding PreviewVisibility}" />
+
+                        <Separator Name="sepTopItems" Visibility="{Binding PreviewVisibility}"/>
+                        <local:SuplexMenuItem x:Name="mnuNewUIElement" Header="New UI Element" ObjectType="UIElement"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/tree_uie.png"
+                                              Click="AddNewObject_Click" Visibility="{Binding UIElementVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuNewValidationRule" Header="New Validation Rule" ObjectType="ValidationRule"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/tree_vr.png"
+                                              Click="AddNewObject_Click" Visibility="{Binding ValidationRuleVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuNewElseRule" Header="New Else Rule" ObjectType="ElseRule"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/tree_er.png"
+                                              Click="AddNewObject_Click" Visibility="{Binding ElseRuleVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuNewFillMap" Header="New Fill Map" ObjectType="FillMap"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/tree_fm.png"
+                                              Click="AddNewObject_Click" Visibility="{Binding FillMapVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuNewElseMap" Header="New Else Map" ObjectType="ElseMap"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/tree_em.png"
+                                              Click="AddNewObject_Click" Visibility="{Binding ElseMapVisibility}" />
+
+                        <Separator Name="sepNewItems" Visibility="{Binding NewItemsSeparatorVisibility}"/>
+                        <local:SuplexMenuItem x:Name="mnuExpandAll" Header="Expand All Children"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/file_expand_16.png"
+                                              Click="ExpandAll_Click" Visibility="{Binding ExpandCollapseVisibility}" />
+                        <local:SuplexMenuItem x:Name="mnuCollapseAll" Header="Collapse All Children"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/file_collapse_16.png"
+                                              Click="CollapseAll_Click" Visibility="{Binding ExpandCollapseVisibility}" />
+
+                        <Separator Name="sepChildItems" Visibility="{Binding DeleteVisibility}"/>
+                        <local:SuplexMenuItem x:Name="mnuDeleteItem" Header="Delete selected item"
+                                              Image="/SuplexAdmin;component/Resources/UIElement/file_delete_16.png"
+                                              Click="DeleteObject_Click" Visibility="{Binding DeleteVisibility}" />
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </local:SuplexTreeView>
+
+            <GridSplitter Grid.Column="0" Background="{DynamicResource GlyphBrush}" Width="3" Margin="0,5" />
+
+            <Border Name="ContentPanel" Grid.Column="1"
+                Background="White"
+                BorderBrush="DarkGray" BorderThickness=".5"/>
+        </Grid>
+    </Grid>
+</UserControl>

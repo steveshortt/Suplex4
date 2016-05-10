@@ -1,0 +1,24 @@
+﻿<Window x:Class="SuplexApp.PreviewDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SuplexApp"
+        Height="700" Width="500"
+        Closing="Window_Closing">
+    <Border CornerRadius="5,5,5,5" BorderBrush="DimGray" BorderThickness="1" Background="WhiteSmoke">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <local:TitleBarApi Grid.Row="0"/>
+
+            <local:UIElementPrvw x:Name="uiePrvw" Grid.Row="1" Visibility="Collapsed"/>
+            <local:LogicRulePrvw x:Name="lrPrvw" Grid.Row="1" Visibility="Collapsed"/>
+            <local:FillMapPrvw x:Name="fmPrvw" Grid.Row="1" Visibility="Collapsed"/>
+        </Grid>
+    </Border>
+</Window>

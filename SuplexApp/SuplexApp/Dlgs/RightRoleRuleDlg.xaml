@@ -1,0 +1,11 @@
+﻿<Window x:Class="SuplexApp.RightRoleRuleDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Right Role Rule Editor"
+        MaxWidth="710" MinWidth="410" Height="600"
+        xmlns:local="clr-namespace:SuplexApp"
+        Closing="Window_Closing">
+    <Grid>
+        <local:LogicRuleCtrl x:Name="ruleCtrl" SavedChanges="Ok_Click" CancelledChanges="Cancel_Click" />
+    </Grid>
+</Window>

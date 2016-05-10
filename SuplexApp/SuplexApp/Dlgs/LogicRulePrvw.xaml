@@ -1,0 +1,194 @@
+﻿<local:PreviewControl x:Class="SuplexApp.LogicRulePrvw"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="clr-namespace:SuplexApp"
+                      xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
+                      DataContextChanged="UserControl_DataContextChanged"
+                      >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Expander Grid.Row="0" Margin="0,-4,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=IsExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="[Properties]" Width="82" Foreground="DarkBlue" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                        Visibility="{local:FormattedBinding Path=IsExpanded, RelativeSource={RelativeSource AncestorType={x:Type Expander}}, ValueIfTrue=Hidden, ValueIfFalse=Visible}">
+                        <Label Content="{local:FormattedBinding Path=EventBinding, FormatString='Event Binding: \{0\}'}"/>
+                        <Label Content="{local:FormattedBinding Path=SortOrder, FormatString=', Sort Order: \{0\}'}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label x:Name="lblEventBinding" Content="Event Binding:" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <Label Grid.Column="1" Name="cmbEventBinding" Content="{Binding Path=EventBinding}"/>
+
+                <Label x:Name="lblSortOrder" Grid.Column="2" Content="Sort Order:" Margin="5,0,5,0"/>
+                <Label Grid.Column="3" Name="txtSortOrder" Content="{Binding Path=SortOrder}"/>
+            </Grid>
+        </Expander>
+        <Expander Grid.Row="1" Margin="0,-4,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=IsExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="[Comparison]" Width="82" Foreground="DarkBlue" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{local:FormattedBinding Path=IsExpanded, RelativeSource={RelativeSource AncestorType={x:Type Expander}}, ValueIfTrue=Hidden, ValueIfFalse=Visible}">
+                        <Label Content="{local:FormattedBinding Path=CompareDataType, FormatString='Type: \{0\}'}"/>
+                        <Label Content="{local:FormattedBinding Path=Operator, FormatString=', Operator: \{0\}'}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <StackPanel Margin="5">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Label x:Name="lblDataType" Content="Data Type:" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                        <Label Grid.Column="1" Name="cmbCompareDataType" Content="{Binding Path=CompareDataType}"/>
+
+                        <Label Grid.Column="2" x:Name="lblOperator" Content="Operator:" Margin="5,0,5,0"/>
+                        <Label Grid.Column="3" Name="cmbOperator" Content="{Binding Path=Operator}"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+        </Expander>
+        <Expander Grid.Row="2" Margin="0,-4,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=IsExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="[Left Operand]" Width="82" Foreground="DarkBlue" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                        Visibility="{local:FormattedBinding Path=IsExpanded, RelativeSource={RelativeSource AncestorType={x:Type Expander}}, ValueIfTrue=Hidden, ValueIfFalse=Visible}">
+                        <Label Content="{local:FormattedBinding Path=ValueType1, FormatString='Value Type: \{0\}'}"/>
+                        <Label Content="{local:FormattedBinding Path=ExpressionType1, FormatString=', Expression Type: \{0\}'}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Compare Value:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,5" />
+                <TextBlock Grid.ColumnSpan="3" Grid.Column="1" Margin="0,0,0,5" Name="txtCompareValue1" TextWrapping="Wrap" Text="{Binding Path=CompareValue1}"/>
+
+                <Label Content="Value Type:" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <Label Grid.Row="1" Grid.Column="1" Name="cmbValueType1" Content="{Binding Path=ValueType1}"/>
+
+                <Label Content="Expression Type:" Grid.Row="1" Grid.Column="2" Margin="5,0,5,0"/>
+                <Label Grid.Row="1" Grid.Column="3" Name="cmbExpressionType1" Content="{Binding Path=ExpressionType1}"/>
+            </Grid>
+        </Expander>
+        <Expander Grid.Row="3" Margin="0,-4,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=IsExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="[Right Operand]" Width="82" Foreground="DarkBlue" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                        Visibility="{local:FormattedBinding Path=IsExpanded, RelativeSource={RelativeSource AncestorType={x:Type Expander}}, ValueIfTrue=Hidden, ValueIfFalse=Visible}">
+                        <Label Content="{local:FormattedBinding Path=ValueType2, FormatString='Value Type: \{0\}'}"/>
+                        <Label Content="{local:FormattedBinding Path=ExpressionType2, FormatString=', Expression Type: \{0\}'}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="Compare Value:" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,5,5" />
+                <TextBlock Grid.ColumnSpan="3" Grid.Column="1" Margin="0,0,0,5" Name="txtCompareValue2" TextWrapping="Wrap" Text="{Binding Path=CompareValue2}"/>
+
+                <Label Content="Value Type:" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <Label Grid.Row="1" Grid.Column="1" Name="cmbValueType2" Content="{Binding Path=ValueType2}"/>
+
+                <Label Content="Expression Type:" Grid.Row="1" Grid.Column="2" Margin="5,0,5,0"/>
+                <Label Grid.Row="1" Grid.Column="3" Name="cmbExpressionType2" Content="{Binding Path=ExpressionType2}"/>
+            </Grid>
+        </Expander>
+        <Expander Grid.Row="4" Margin="0,-4,0,0"
+                  IsExpanded="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=IsExpanded, UpdateSourceTrigger=Explicit}">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="[Result]" Width="82" Foreground="DarkBlue" HorizontalContentAlignment="Right" Margin="0,0,10,0"/>
+                    <StackPanel Orientation="Horizontal"
+                                        Visibility="{local:FormattedBinding Path=IsExpanded, RelativeSource={RelativeSource AncestorType={x:Type Expander}}, ValueIfTrue=Hidden, ValueIfFalse=Visible}">
+                        <Label Content="{local:FormattedBinding Path=FailParent, ValueIfTrue='Stop: Fail the logic branch', ValueIfFalse='Continue: Process child logic', FormatString='On Failure: \{0\}'}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Expander.Header>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=ForValidationRule, ValueIfTrue=Auto, ValueIfFalse=0}" Name="ResultRow1"/>
+                    <RowDefinition Height="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=ForValidationRule, ValueIfTrue=Auto, ValueIfFalse=0}" Name="ResultRow2"/>
+                    <RowDefinition Height="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=ForValidationRule, ValueIfTrue=0, ValueIfFalse=Auto}" Name="ResultRow3"/>
+                </Grid.RowDefinitions>
+
+                <Label Content="On Failure:" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <Label Grid.Column="1" Content="{local:FormattedBinding Path=FailParent, ValueIfTrue=Stop: Fail the logic branch, ValueIfFalse=Continue: Process child logic}"/>
+
+                <Label Content="Error Message:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,5,5"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Margin="0,5,0,5"
+							Name="txtErrorMsg" VerticalAlignment="Top" Text="{Binding Path=ErrorMessage}"/>
+
+                <Label Content="Alt Error Element:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,5"/>
+                <Label Grid.Row="2" Grid.Column="1" Name="txtAltErrorElement" Margin="0,0,0,5" Content="{Binding Path=ErrorControl}" />
+
+                <Label Content="Right Roles:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                <ListView Name="lvRightRoles" Grid.Row="3" Grid.Column="1" MaxHeight="300"
+                          Visibility="{local:FormattedBinding RelativeSource={RelativeSource AncestorType={x:Type local:LogicRulePrvw}}, Path=ForValidationRule, ValueIfTrue=Collapsed, ValueIfFalse=Visible}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Header="Type" Width="75"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=ControlUniqueName}" Header="UniqueName" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=AceType}" Header="Ace Type" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=RightName}" Header="Right" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=UIRight}" Header="UI Right" Width="100"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </Expander>
+    </Grid>
+</local:PreviewControl>

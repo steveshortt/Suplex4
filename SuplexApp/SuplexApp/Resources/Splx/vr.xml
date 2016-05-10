@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SuplexStore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UIElements>
+    <UIElement>
+      <Id>549f74aa-ce16-43c9-a72a-6a0e5196c3fc</Id>
+      <Name>logicRuleCtrl</Name>
+      <ControlType>UserControl</ControlType>
+      <UniqueName>logicRuleCtrl</UniqueName>
+      <Desc />
+      <DescTooltip>false</DescTooltip>
+      <AllowUndeclared>false</AllowUndeclared>
+      <DataType>Empty</DataType>
+      <DataTypeErrMsg />
+      <FormatString />
+      <ValidationRules />
+      <FillMaps />
+      <UIElements>
+        <UIElement>
+          <Id>6d2143fe-147a-4f24-bd86-74ff0df27d29</Id>
+          <Name>txtName</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtName</UniqueName>
+          <Desc>The friendly name for the Validation Rule, used for display purposes only.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>String</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>6601cdef-c641-44ed-ba41-f06b8e1193e6</Id>
+              <Name>Required</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{1,50}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Name is required and limited to 50 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>0f0c323a-0098-468f-87a9-5b4e3d5c7caa</Id>
+          <Name>cmbEventBinding</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbEventBinding</UniqueName>
+          <Desc>The event on which this rule will fire.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>15b9836c-7657-4643-aedd-0005e3e30d62</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbEventBinding-&gt;SelectedIndex</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>-1</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Event Binding is required.</ErrorMessage>
+              <CompareDataType>Int32</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>32af4802-21b2-4b5e-952e-14227e2f51f4</Id>
+          <Name>txtSortOrder</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtSortOrder</UniqueName>
+          <Desc>Enforces processing order of sibling validation rules.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Int32</DataType>
+          <DataTypeErrMsg>Sort Order must be an integer number.</DataTypeErrMsg>
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>a82be124-917f-4881-be06-3ba78a5fae46</Id>
+              <Name>Required</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\d]{1,8}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Sort order is required, must be a number, and must be eight digits or less.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>a3fcbbf3-4d22-4812-9a86-e6829e155881</Id>
+          <Name>txtCompareValue1</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtCompareValue1</UniqueName>
+          <Desc>Left operand compare value; leave blank for a reference to Parent control with default Property value.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>String</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>aa7457fe-b965-417f-b148-86f40fc362ad</Id>
+              <Name>Not Required, Len 500</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{0,500}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>CompareValue 1 is limited to 500 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>643bc42c-e4a9-4eab-b14e-c1ff6a01b3aa</Id>
+          <Name>cmbValueType1</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbValueType1</UniqueName>
+          <Desc>Specifies how the CompareValue is to be interpreted.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>680169ba-2399-4ee3-ad9f-643dbe6dc5f9</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbValueType1-&gt;SelectedIndex</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>-1</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>ValueType1 is required.</ErrorMessage>
+              <CompareDataType>Int32</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>91b8b43c-56bc-4299-b5f6-414345f738df</Id>
+                  <Name>SelectedValue == Empty</Name>
+                  <CompareValue1>cmbValueType1-&gt;SelectedValue</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>Empty</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>Equal</Operator>
+                  <FailParent>false</FailParent>
+                  <ErrorMessage />
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules>
+                    <ValidationRule>
+                      <LogicRuleType>ValidationIf</LogicRuleType>
+                      <Id>b4936b29-f8c4-47ea-b043-99e4e291ca9e</Id>
+                      <Name>CompareValue1 must be empty</Name>
+                      <CompareValue1>txtCompareValue1-&gt;Text</CompareValue1>
+                      <ValueType1>Control</ValueType1>
+                      <ExpressionType1>None</ExpressionType1>
+                      <CompareValue2>^[.]{0}$</CompareValue2>
+                      <ValueType2>Singular</ValueType2>
+                      <ExpressionType2>None</ExpressionType2>
+                      <Operator>RegularExpression</Operator>
+                      <FailParent>true</FailParent>
+                      <ErrorMessage>Because ValueType 1 is "Empty," CompareValue 1 must be empty.</ErrorMessage>
+                      <CompareDataType>String</CompareDataType>
+                      <SortOrder>0</SortOrder>
+                      <ErrorControl>txtCompareValue1</ErrorControl>
+                      <EventBinding>None</EventBinding>
+                      <FillMaps />
+                      <ValidationRules />
+                      <ElseMaps />
+                      <ElseRules />
+                    </ValidationRule>
+                  </ValidationRules>
+                  <ElseMaps />
+                  <ElseRules>
+                    <ValidationRule>
+                      <LogicRuleType>ValidationIf</LogicRuleType>
+                      <Id>55eda95b-4c7e-4684-8a41-7361b0f1261a</Id>
+                      <Name>CompareValue1 Required</Name>
+                      <CompareValue1>txtCompareValue1-&gt;Text</CompareValue1>
+                      <ValueType1>Control</ValueType1>
+                      <ExpressionType1>None</ExpressionType1>
+                      <CompareValue2>^[\w\W]{1,500}$</CompareValue2>
+                      <ValueType2>Singular</ValueType2>
+                      <ExpressionType2>None</ExpressionType2>
+                      <Operator>RegularExpression</Operator>
+                      <FailParent>true</FailParent>
+                      <ErrorMessage>Because ValueType 1 is not "Empty," CompareValue 1 is required and limited to 500 characters.</ErrorMessage>
+                      <CompareDataType>String</CompareDataType>
+                      <SortOrder>0</SortOrder>
+                      <ErrorControl>txtCompareValue1</ErrorControl>
+                      <EventBinding>None</EventBinding>
+                      <FillMaps />
+                      <ValidationRules />
+                      <ElseMaps />
+                      <ElseRules />
+                    </ValidationRule>
+                  </ElseRules>
+                </ValidationRule>
+              </ValidationRules>
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>cff8d4ac-81ae-43bd-be4e-978eadbb3d73</Id>
+          <Name>cmbExpressionType1</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbExpressionType1</UniqueName>
+          <Desc>If the CompareValue is an Expression, specifies the the ExpressionType.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>4a87120c-4415-4762-b9b1-4a207b721593</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbValueType1-&gt;SelectedValue</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>Expression</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>Equal</Operator>
+              <FailParent>false</FailParent>
+              <ErrorMessage />
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>dffcd905-dc52-4b64-8bd2-d1823196dfb4</Id>
+                  <Name>Required</Name>
+                  <CompareValue1>cmbExpressionType1-&gt;SelectedIndex</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>-1</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>NotEqual</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>ExpressionType1 is required (ValueType1 is Expression).</ErrorMessage>
+                  <CompareDataType>Int32</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>f835aacb-39ac-44f0-95e7-1b418902942f</Id>
+          <Name>txtCompareValue2</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtCompareValue2</UniqueName>
+          <Desc>Right operand compare value; leave blank for a reference to Parent control with default Property value.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>String</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>a8860836-fda8-4047-9238-7c2b03036486</Id>
+              <Name>Required, Len 500</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{1,500}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>CompareValue 2 is required and is limited to 500 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>98ec4cd8-129f-491c-b66c-3d4843f43a04</Id>
+          <Name>cmbValueType2</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbValueType2</UniqueName>
+          <Desc>Specifies how the CompareValue is to be interpreted.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>1642bbde-6000-4511-ae24-187a2f8859ee</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbValueType2-&gt;SelectedValue</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>Empty</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>ValueType2 is required.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>3913d788-b9cf-4b0e-beb0-8a8d7cd2e535</Id>
+          <Name>cmbExpressionType2</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbExpressionType2</UniqueName>
+          <Desc>If the CompareValue is an Expression, specifies the the ExpressionType.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>0e3a9155-b242-4f08-95c5-ffb2af9b9657</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbValueType1-&gt;SelectedValue</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>Expression</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>Equal</Operator>
+              <FailParent>false</FailParent>
+              <ErrorMessage />
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>95abc171-a500-4bf5-bc53-5db25a09133d</Id>
+                  <Name>Required</Name>
+                  <CompareValue1>cmbExpressionType2-&gt;SelectedIndex</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>-1</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>NotEqual</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>ExpressionType2 is required (ValueType2 is Expression).</ErrorMessage>
+                  <CompareDataType>Int32</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>eba5a0cb-1587-4fa3-953d-5e2920dc49d4</Id>
+          <Name>cmbCompareDataType</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbCompareDataType</UniqueName>
+          <Desc>Specifies the DataType for the comparison; the operand values will be typecasted to meet the DataType.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>67f0a1ff-b7d7-43a3-9279-0034684a6683</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbCompareDataType-&gt;SelectedValue</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>Empty</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Comparison Data Type is required.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>ce42144b-e6b2-4ab1-a557-92e3fd3d0e83</Id>
+          <Name>cmbOperator</Name>
+          <ControlType>ComboBox</ControlType>
+          <UniqueName>cmbOperator</UniqueName>
+          <Desc>The operator for the comparison.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>f6bc1211-0395-4173-a122-97514cd9a096</Id>
+              <Name>Required</Name>
+              <CompareValue1>cmbOperator-&gt;SelectedIndex</CompareValue1>
+              <ValueType1>Control</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>-1</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>NotEqual</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Operator is required.</ErrorMessage>
+              <CompareDataType>Int32</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>2a7f9b41-1ce0-4570-9f4d-5a69912e1fbc</Id>
+          <Name>chkFailParent</Name>
+          <ControlType>UserControl</ControlType>
+          <UniqueName>chkFailParent</UniqueName>
+          <Desc>Indicates whether or not to fail the logic branch.  If true, then a failure of the ValidationRule will halt processing of the branch and return an error.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules />
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>262d1a85-f3b0-4217-9ea8-248e4d461702</Id>
+          <Name>txtErrorMsg</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtErrorMsg</UniqueName>
+          <Desc>The error message to return when a rule fails.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>c611a4c6-311d-486c-a6d8-85e0efbc9198</Id>
+              <Name>Not Required, Len 500</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{0,500}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Error Message is limited to 500 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>9e349e38-0bcb-4a0a-8eee-0adf0f8b42ba</Id>
+          <Name>txtAltErrorElement</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtAltErrorElement</UniqueName>
+          <Desc>The UniqueName of the element to assign the error condition.  This is designed to support use of the Suplex ValidationSummary control, or conditions such as Else clause processing that specify non-parent control tests.</Desc>
+          <DescTooltip>true</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>78811101-e3f7-4b9d-8189-bbda1192f44c</Id>
+              <Name>Not Required, Len 50</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{0,50}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Alt Error Element is limited to 50 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules />
+              <ElseMaps />
+              <ElseRules />
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+      </UIElements>
+      <SecurityDescriptor>
+        <DaclInherit>true</DaclInherit>
+        <SaclInherit>true</SaclInherit>
+        <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+        <Dacl />
+        <Sacl />
+        <RightRoles />
+        <RightRoleRules />
+      </SecurityDescriptor>
+    </UIElement>
+  </UIElements>
+  <Users />
+  <Groups />
+  <GroupMembership />
+</SuplexStore>

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Suplex.Api.SuplexApi" CodeBehind="SuplexApi.svc.cs" %>

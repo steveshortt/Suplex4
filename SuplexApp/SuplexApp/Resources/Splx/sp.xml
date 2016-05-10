@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SuplexStore xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <UIElements>
+    <UIElement>
+      <Id>026d585b-3404-483d-b9f4-0df889a76acd</Id>
+      <Name>securityPrincipalEditor</Name>
+      <ControlType>UserControl</ControlType>
+      <UniqueName>securityPrincipalEditor</UniqueName>
+      <Description />
+      <UseDescriptionAsTooltip>false</UseDescriptionAsTooltip>
+      <AllowUndeclared>false</AllowUndeclared>
+      <DataType>String</DataType>
+      <DataTypeErrorMessage />
+      <FormatString />
+      <ValidationRules />
+      <FillMaps />
+      <UIElements>
+        <UIElement>
+          <Id>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</Id>
+          <Name>txtName</Name>
+          <ControlType>TextBox</ControlType>
+          <UniqueName>txtName</UniqueName>
+          <Description />
+          <UseDescriptionAsTooltip>false</UseDescriptionAsTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>String</DataType>
+          <DataTypeErrorMessage />
+          <FormatString />
+          <ValidationRules>
+            <ValidationRule>
+              <LogicRuleType>ValidationIf</LogicRuleType>
+              <Id>7cfce509-983c-47a4-bb5b-44c9ef8ea38a</Id>
+              <Name>Required, Len=50</Name>
+              <CompareValue1 />
+              <ValueType1>Empty</ValueType1>
+              <ExpressionType1>None</ExpressionType1>
+              <CompareValue2>^[\w\W]{1,500}$</CompareValue2>
+              <ValueType2>Singular</ValueType2>
+              <ExpressionType2>None</ExpressionType2>
+              <Operator>RegularExpression</Operator>
+              <FailParent>true</FailParent>
+              <ErrorMessage>Name is required and is limited to 50 characters.</ErrorMessage>
+              <CompareDataType>String</CompareDataType>
+              <SortOrder>0</SortOrder>
+              <ErrorControl />
+              <EventBinding>Validating</EventBinding>
+              <FillMaps />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>67bb6472-6e48-47f9-beac-2a821eaf2222</Id>
+                  <Name>NeedsNameExistsTest</Name>
+                  <CompareValue1>securityPrincipalEditor-&gt;NeedsNameExistsTest</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>True</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>Equal</Operator>
+                  <FailParent>false</FailParent>
+                  <ErrorMessage />
+                  <CompareDataType>Boolean</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>None</EventBinding>
+                  <FillMaps />
+                  <ValidationRules>
+                    <ValidationRule>
+                      <LogicRuleType>ValidationIf</LogicRuleType>
+                      <Id>67bb6472-6e48-47f9-beac-2a821eaf8ba8</Id>
+                      <Name>HasDatabaseConnection</Name>
+                      <CompareValue1>securityPrincipalEditor-&gt;HasDatabaseConnection</CompareValue1>
+                      <ValueType1>Control</ValueType1>
+                      <ExpressionType1>None</ExpressionType1>
+                      <CompareValue2>True</CompareValue2>
+                      <ValueType2>Singular</ValueType2>
+                      <ExpressionType2>None</ExpressionType2>
+                      <Operator>Equal</Operator>
+                      <FailParent>false</FailParent>
+                      <ErrorMessage />
+                      <CompareDataType>Boolean</CompareDataType>
+                      <SortOrder>0</SortOrder>
+                      <ErrorControl />
+                      <EventBinding>None</EventBinding>
+                      <FillMaps />
+                      <ValidationRules>
+                        <ValidationRule>
+                          <LogicRuleType>ValidationIf</LogicRuleType>
+                          <Id>9a8a8b95-2112-4999-a3d8-51c64b848963</Id>
+                          <Name>IsUserObject</Name>
+                          <CompareValue1>securityPrincipalEditor-&gt;IsUserObject</CompareValue1>
+                          <ValueType1>Control</ValueType1>
+                          <ExpressionType1>None</ExpressionType1>
+                          <CompareValue2>True</CompareValue2>
+                          <ValueType2>Singular</ValueType2>
+                          <ExpressionType2>None</ExpressionType2>
+                          <Operator>Equal</Operator>
+                          <FailParent>false</FailParent>
+                          <ErrorMessage />
+                          <CompareDataType>Boolean</CompareDataType>
+                          <SortOrder>0</SortOrder>
+                          <ErrorControl />
+                          <EventBinding>None</EventBinding>
+                          <FillMaps />
+                          <ValidationRules>
+                            <ValidationRule>
+                              <LogicRuleType>ValidationIf</LogicRuleType>
+                              <Id>626c03f3-82ee-4cc8-b1df-e9444a86259c</Id>
+                              <Name>User Exists</Name>
+                              <CompareValue1 />
+                              <ValueType1>Empty</ValueType1>
+                              <ExpressionType1>None</ExpressionType1>
+                              <CompareValue2>splx.splx_api_sel_userbyname_exists @user_name=[txtName-&gt;Text]</CompareValue2>
+                              <ValueType2>Expression</ValueType2>
+                              <ExpressionType2>StoredProcedure</ExpressionType2>
+                              <Operator>NotInList</Operator>
+                              <FailParent>true</FailParent>
+                              <ErrorMessage>The User Name already exists; please choose another name.</ErrorMessage>
+                              <CompareDataType>Object</CompareDataType>
+                              <SortOrder>0</SortOrder>
+                              <ErrorControl />
+                              <EventBinding>None</EventBinding>
+                              <FillMaps />
+                              <ValidationRules />
+                              <ElseMaps />
+                              <ElseRules />
+                              <ParentId>9a8a8b95-2112-4999-a3d8-51c64b848963</ParentId>
+                              <ParentUIElementId>00000000-0000-0000-0000-000000000000</ParentUIElementId>
+                            </ValidationRule>
+                          </ValidationRules>
+                          <ElseMaps />
+                          <ElseRules>
+                            <ValidationRule>
+                              <LogicRuleType>ValidationIf</LogicRuleType>
+                              <Id>61c57a2d-b8ad-4ad7-b29e-c2f94abfbcc3</Id>
+                              <Name>Group Exists</Name>
+                              <CompareValue1 />
+                              <ValueType1>Empty</ValueType1>
+                              <ExpressionType1>None</ExpressionType1>
+                              <CompareValue2>splx.splx_api_sel_groupbyname_exists @group_name=[txtName-&gt;Text]</CompareValue2>
+                              <ValueType2>Expression</ValueType2>
+                              <ExpressionType2>StoredProcedure</ExpressionType2>
+                              <Operator>NotInList</Operator>
+                              <FailParent>true</FailParent>
+                              <ErrorMessage>The Group Name already exists; please choose another name.</ErrorMessage>
+                              <CompareDataType>Object</CompareDataType>
+                              <SortOrder>0</SortOrder>
+                              <ErrorControl />
+                              <EventBinding>None</EventBinding>
+                              <FillMaps />
+                              <ValidationRules />
+                              <ElseMaps />
+                              <ElseRules />
+                              <ParentId>9a8a8b95-2112-4999-a3d8-51c64b848963</ParentId>
+                              <ParentUIElementId>00000000-0000-0000-0000-000000000000</ParentUIElementId>
+                            </ValidationRule>
+                          </ElseRules>
+                          <ParentId>67bb6472-6e48-47f9-beac-2a821eaf8ba8</ParentId>
+                          <ParentUIElementId>00000000-0000-0000-0000-000000000000</ParentUIElementId>
+                        </ValidationRule>
+                      </ValidationRules>
+                      <ElseMaps />
+                      <ElseRules>
+                        <ValidationRule>
+                          <LogicRuleType>ValidationElse</LogicRuleType>
+                          <Id>4b6c035d-1562-4c30-b9be-081b9e6df905</Id>
+                          <Name>IsUserObject</Name>
+                          <CompareValue1>securityPrincipalEditor-&gt;IsUserObject</CompareValue1>
+                          <ValueType1>Control</ValueType1>
+                          <ExpressionType1>None</ExpressionType1>
+                          <CompareValue2>True</CompareValue2>
+                          <ValueType2>Singular</ValueType2>
+                          <ExpressionType2>None</ExpressionType2>
+                          <Operator>Equal</Operator>
+                          <FailParent>false</FailParent>
+                          <ErrorMessage />
+                          <CompareDataType>Boolean</CompareDataType>
+                          <SortOrder>0</SortOrder>
+                          <ErrorControl />
+                          <EventBinding>None</EventBinding>
+                          <FillMaps />
+                          <ValidationRules>
+                            <ValidationRule>
+                              <LogicRuleType>ValidationIf</LogicRuleType>
+                              <Id>61b77b82-052f-47a6-a21c-6943340814e4</Id>
+                              <Name>User Exists</Name>
+                              <CompareValue1>securityPrincipalEditor-&gt;UserExists</CompareValue1>
+                              <ValueType1>Control</ValueType1>
+                              <ExpressionType1>None</ExpressionType1>
+                              <CompareValue2>False</CompareValue2>
+                              <ValueType2>Singular</ValueType2>
+                              <ExpressionType2>None</ExpressionType2>
+                              <Operator>Equal</Operator>
+                              <FailParent>true</FailParent>
+                              <ErrorMessage>The User Name already exists; please choose another name.</ErrorMessage>
+                              <CompareDataType>Boolean</CompareDataType>
+                              <SortOrder>0</SortOrder>
+                              <ErrorControl />
+                              <EventBinding>None</EventBinding>
+                              <FillMaps />
+                              <ValidationRules />
+                              <ElseMaps />
+                              <ElseRules />
+                              <ParentId>4b6c035d-1562-4c30-b9be-081b9e6df905</ParentId>
+                              <ParentUIElementId>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</ParentUIElementId>
+                            </ValidationRule>
+                            <ValidationRule>
+                              <LogicRuleType>ValidationIf</LogicRuleType>
+                              <Id>d8aa0934-fdd1-44ca-b5ca-92640caa845c</Id>
+                              <Name>Group Exists</Name>
+                              <CompareValue1>securityPrincipalEditor-&gt;GroupExists</CompareValue1>
+                              <ValueType1>Control</ValueType1>
+                              <ExpressionType1>None</ExpressionType1>
+                              <CompareValue2>False</CompareValue2>
+                              <ValueType2>Singular</ValueType2>
+                              <ExpressionType2>None</ExpressionType2>
+                              <Operator>Equal</Operator>
+                              <FailParent>true</FailParent>
+                              <ErrorMessage>The Group Name already exists; please choose another name.</ErrorMessage>
+                              <CompareDataType>Boolean</CompareDataType>
+                              <SortOrder>0</SortOrder>
+                              <ErrorControl />
+                              <EventBinding>None</EventBinding>
+                              <FillMaps />
+                              <ValidationRules />
+                              <ElseMaps />
+                              <ElseRules />
+                              <ParentId>4b6c035d-1562-4c30-b9be-081b9e6df905</ParentId>
+                              <ParentUIElementId>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</ParentUIElementId>
+                            </ValidationRule>
+                          </ValidationRules>
+                          <ElseMaps />
+                          <ElseRules />
+                          <ParentId>67bb6472-6e48-47f9-beac-2a821eaf8ba8</ParentId>
+                          <ParentUIElementId>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</ParentUIElementId>
+                        </ValidationRule>
+                      </ElseRules>
+                      <ParentId>67bb6472-6e48-47f9-beac-2a821eaf2222</ParentId>
+                      <ParentUIElementId>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</ParentUIElementId>
+                    </ValidationRule>
+                  </ValidationRules>
+                  <ElseMaps />
+                  <ElseRules />
+                  <ParentId>7cfce509-983c-47a4-bb5b-44c9ef8ea38a</ParentId>
+                  <ParentUIElementId>00000000-0000-0000-0000-000000000000</ParentUIElementId>
+                </ValidationRule>
+              </ValidationRules>
+              <ElseMaps />
+              <ElseRules />
+              <ParentId>00000000-0000-0000-0000-000000000000</ParentId>
+              <ParentUIElementId>4dd6cf1b-1035-4aaf-b725-2dee46bd48b5</ParentUIElementId>
+            </ValidationRule>
+          </ValidationRules>
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+            <DeleteDaclIds />
+            <DeleteSaclIds />
+            <DeleteRightRoleIds />
+            <DeleteRightRoleRuleIds />
+          </SecurityDescriptor>
+        </UIElement>
+      </UIElements>
+      <SecurityDescriptor>
+        <DaclInherit>true</DaclInherit>
+        <SaclInherit>true</SaclInherit>
+        <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+        <Dacl />
+        <Sacl />
+        <RightRoles />
+        <RightRoleRules />
+        <DeleteDaclIds />
+        <DeleteSaclIds />
+        <DeleteRightRoleIds />
+        <DeleteRightRoleRuleIds />
+      </SecurityDescriptor>
+    </UIElement>
+  </UIElements>
+  <Users />
+  <Groups />
+  <GroupMembership />
+</SuplexStore>

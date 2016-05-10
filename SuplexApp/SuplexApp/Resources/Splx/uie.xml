@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<SuplexStore xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <UIElements>
+    <UIElement>
+      <Id>2086302a-f858-4e19-8da0-9fc380de9ede</Id>
+      <Name>UIE Editor Control</Name>
+      <ControlType>UserControl</ControlType>
+      <UniqueName>uieEditor</UniqueName>
+      <Desc />
+      <DescTooltip>false</DescTooltip>
+      <AllowUndeclared>false</AllowUndeclared>
+      <DataType>Empty</DataType>
+      <DataTypeErrMsg />
+      <FormatString />
+      <ValidationRules />
+      <FillMaps>
+        <FillMap>
+          <FillMapType>FillMapIf</FillMapType>
+          <Id>1</Id>
+          <Name>Initialize</Name>
+          <Expression />
+          <ExpressionType>None</ExpressionType>
+          <EventBinding>Initialize</EventBinding>
+          <SortOrder>1</SortOrder>
+          <DataBindings>
+            <DataBinding>
+              <Id>0</Id>
+              <ControlName>txtName</ControlName>
+              <PropertyName>BackGround</PropertyName>
+              <Value>LemonChiffon</Value>
+              <OverrideValue>true</OverrideValue>
+            </DataBinding>
+            <DataBinding>
+              <Id>1</Id>
+              <ControlName>txtUniqueName</ControlName>
+              <PropertyName>BackGround</PropertyName>
+              <Value>LemonChiffon</Value>
+              <OverrideValue>true</OverrideValue>
+            </DataBinding>
+          </DataBindings>
+        </FillMap>
+      </FillMaps>
+      <UIElements>
+        <UIElement>
+          <Id>19c59033-2fa3-41dc-a927-3a6b673c40bf</Id>
+          <Name>uieProps</Name>
+          <ControlType>UserControl</ControlType>
+          <UniqueName>uieProps</UniqueName>
+          <Desc />
+          <DescTooltip>false</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules />
+          <FillMaps />
+          <UIElements>
+            <UIElement>
+              <Id>c4d91dbb-bad0-419f-88a6-8be995d406f9</Id>
+              <Name>txtName</Name>
+              <ControlType>TextBox</ControlType>
+              <UniqueName>txtName</UniqueName>
+              <Desc>A friendly name for the control.  This value is used for display purposes only.</Desc>
+              <DescTooltip>true</DescTooltip>
+              <AllowUndeclared>false</AllowUndeclared>
+              <DataType>String</DataType>
+              <DataTypeErrMsg />
+              <FormatString />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>9f8641be-334c-454f-85ec-1e95bc1e8248</Id>
+                  <Name>Required, Len = 50</Name>
+                  <CompareValue1 />
+                  <ValueType1>Empty</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>^[\w\W]{1,50}$</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>RegularExpression</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>Name is required.</ErrorMessage>
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>Validating</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <FillMaps />
+              <UIElements />
+              <SecurityDescriptor>
+                <DaclInherit>true</DaclInherit>
+                <SaclInherit>true</SaclInherit>
+                <SaclAuditTypeFilter>FailureAudit Warning Error</SaclAuditTypeFilter>
+                <Dacl />
+                <Sacl />
+                <RightRoles />
+                <RightRoleRules />
+              </SecurityDescriptor>
+            </UIElement>
+            <UIElement>
+              <Id>405bb764-1144-4638-8bc1-b855f085ba46</Id>
+              <Name>cmbControlType</Name>
+              <ControlType>ComboBox</ControlType>
+              <UniqueName>cmbControlType</UniqueName>
+              <Desc />
+              <DescTooltip>false</DescTooltip>
+              <AllowUndeclared>false</AllowUndeclared>
+              <DataType>Empty</DataType>
+              <DataTypeErrMsg />
+              <FormatString />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>7580cdd1-4906-4281-bb54-52958573b867</Id>
+                  <Name>Required</Name>
+                  <CompareValue1>cmbControlType-&gt;SelectedIndex</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>-1</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>NotEqual</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>Data Type is required.</ErrorMessage>
+                  <CompareDataType>Int32</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>Validating</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>b51a7ef5-c593-41a6-975e-a02c622a4555</Id>
+                  <Name>Reset Data Type</Name>
+                  <CompareValue1>cmbControlType-&gt;SelectedValue</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>TextBox</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>NotEqual</Operator>
+                  <FailParent>false</FailParent>
+                  <ErrorMessage />
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>1</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>SelectedIndexChanged</EventBinding>
+                  <FillMaps>
+                    <FillMap>
+                      <FillMapType>FillMapIf</FillMapType>
+                      <Id>0</Id>
+                      <Name>DataType == Empty</Name>
+                      <ExpressionType>None</ExpressionType>
+                      <EventBinding>None</EventBinding>
+                      <SortOrder>0</SortOrder>
+                      <DataBindings>
+                        <DataBinding>
+                          <Id>0</Id>
+                          <ControlName>cmbDataType</ControlName>
+                          <PropertyName>SelectedItem</PropertyName>
+                          <Value>Empty</Value>
+                          <OverrideValue>true</OverrideValue>
+                        </DataBinding>
+                      </DataBindings>
+                    </FillMap>
+                  </FillMaps>
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <FillMaps />
+              <UIElements />
+              <SecurityDescriptor>
+                <DaclInherit>true</DaclInherit>
+                <SaclInherit>true</SaclInherit>
+                <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+                <Dacl />
+                <Sacl />
+                <RightRoles />
+                <RightRoleRules />
+              </SecurityDescriptor>
+            </UIElement>
+            <UIElement>
+              <Id>19207478-609f-4513-940c-4eaab3ade408</Id>
+              <Name>txtUniqueName</Name>
+              <ControlType>TextBox</ControlType>
+              <UniqueName>txtUniqueName</UniqueName>
+              <Desc>The unique for the control within a given context.  Suplex uses this value to identify the control in an application.</Desc>
+              <DescTooltip>true</DescTooltip>
+              <AllowUndeclared>false</AllowUndeclared>
+              <DataType>String</DataType>
+              <DataTypeErrMsg />
+              <FormatString />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>577ce414-090d-419d-bdd9-1b527258ad95</Id>
+                  <Name>Required, Len = 50</Name>
+                  <CompareValue1 />
+                  <ValueType1>Empty</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>^[\w\W]{1,50}$</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>RegularExpression</Operator>
+                  <FailParent>true</FailParent>
+                  <ErrorMessage>UniqueName is required.</ErrorMessage>
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>Validating</EventBinding>
+                  <FillMaps />
+                  <ValidationRules />
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <FillMaps />
+              <UIElements />
+              <SecurityDescriptor>
+                <DaclInherit>true</DaclInherit>
+                <SaclInherit>true</SaclInherit>
+                <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+                <Dacl />
+                <Sacl />
+                <RightRoles />
+                <RightRoleRules />
+              </SecurityDescriptor>
+            </UIElement>
+            <UIElement>
+              <Id>54f19912-9f56-4106-8bef-6a944a6fae67</Id>
+              <Name>cmbDataType</Name>
+              <ControlType>ComboBox</ControlType>
+              <UniqueName>cmbDataType</UniqueName>
+              <Desc />
+              <DescTooltip>false</DescTooltip>
+              <AllowUndeclared>false</AllowUndeclared>
+              <DataType>Empty</DataType>
+              <DataTypeErrMsg />
+              <FormatString />
+              <ValidationRules>
+                <ValidationRule>
+                  <LogicRuleType>ValidationIf</LogicRuleType>
+                  <Id>2308beab-8930-42cf-8dbe-7879b477c400</Id>
+                  <Name>ControlType == TextBox ?</Name>
+                  <CompareValue1>cmbControlType-&gt;Text</CompareValue1>
+                  <ValueType1>Control</ValueType1>
+                  <ExpressionType1>None</ExpressionType1>
+                  <CompareValue2>TextBox</CompareValue2>
+                  <ValueType2>Singular</ValueType2>
+                  <ExpressionType2>None</ExpressionType2>
+                  <Operator>Equal</Operator>
+                  <FailParent>false</FailParent>
+                  <ErrorMessage>[ControlType != TextBox]</ErrorMessage>
+                  <CompareDataType>String</CompareDataType>
+                  <SortOrder>0</SortOrder>
+                  <ErrorControl />
+                  <EventBinding>Validating</EventBinding>
+                  <FillMaps />
+                  <ValidationRules>
+                    <ValidationRule>
+                      <LogicRuleType>ValidationIf</LogicRuleType>
+                      <Id>edb7732b-a12f-476f-9921-8605c6a26539</Id>
+                      <Name>DataType Required</Name>
+                      <CompareValue1>cmbDataType-&gt;SelectedIndex</CompareValue1>
+                      <ValueType1>Control</ValueType1>
+                      <ExpressionType1>None</ExpressionType1>
+                      <CompareValue2>-1</CompareValue2>
+                      <ValueType2>Singular</ValueType2>
+                      <ExpressionType2>None</ExpressionType2>
+                      <Operator>NotEqual</Operator>
+                      <FailParent>true</FailParent>
+                      <ErrorMessage>Because Element Type is "TextBox," you must specifiy a Data Type.</ErrorMessage>
+                      <CompareDataType>Int32</CompareDataType>
+                      <SortOrder>0</SortOrder>
+                      <ErrorControl />
+                      <EventBinding>None</EventBinding>
+                      <FillMaps />
+                      <ValidationRules />
+                      <ElseMaps />
+                      <ElseRules />
+                    </ValidationRule>
+                  </ValidationRules>
+                  <ElseMaps />
+                  <ElseRules />
+                </ValidationRule>
+              </ValidationRules>
+              <FillMaps />
+              <UIElements />
+              <SecurityDescriptor>
+                <DaclInherit>true</DaclInherit>
+                <SaclInherit>true</SaclInherit>
+                <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+                <Dacl />
+                <Sacl />
+                <RightRoles />
+                <RightRoleRules />
+              </SecurityDescriptor>
+            </UIElement>
+          </UIElements>
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+        <UIElement>
+          <Id>246fb07a-024a-4d45-8a3a-1e70e0a572a6</Id>
+          <Name>uieSec</Name>
+          <ControlType>UserControl</ControlType>
+          <UniqueName>uieSec</UniqueName>
+          <Desc />
+          <DescTooltip>false</DescTooltip>
+          <AllowUndeclared>false</AllowUndeclared>
+          <DataType>Empty</DataType>
+          <DataTypeErrMsg />
+          <FormatString />
+          <ValidationRules />
+          <FillMaps />
+          <UIElements />
+          <SecurityDescriptor>
+            <DaclInherit>true</DaclInherit>
+            <SaclInherit>true</SaclInherit>
+            <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+            <Dacl />
+            <Sacl />
+            <RightRoles />
+            <RightRoleRules />
+          </SecurityDescriptor>
+        </UIElement>
+      </UIElements>
+      <SecurityDescriptor>
+        <DaclInherit>true</DaclInherit>
+        <SaclInherit>true</SaclInherit>
+        <SaclAuditTypeFilter>SuccessAudit FailureAudit Information Warning Error</SaclAuditTypeFilter>
+        <Dacl>
+          <AccessControlEntryBase xsi:type="UIAce" Id="10" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="11" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="12" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="13" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="14" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="15" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+          <AccessControlEntryBase xsi:type="UIAce" Id="16" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Right="FullControl" />
+        </Dacl>
+        <Sacl>
+          <AccessControlEntryAuditBase xsi:type="RecordAuditAce" Id="0" Allowed="true" Inherit="true" SecurityPrincipalId="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Denied="false">
+            <Right>Delete Update Insert</Right>
+          </AccessControlEntryAuditBase>
+        </Sacl>
+        <RightRoles>
+          <RightRole>
+            <Id>1</Id>
+            <RightRoleType>Success</RightRoleType>
+            <ControlUniqueName>txtUniqueName</ControlUniqueName>
+            <AceType>Synchronization</AceType>
+            <SourceRight>Download</SourceRight>
+            <DestinationRight>Enabled</DestinationRight>
+          </RightRole>
+          <RightRole>
+            <Id>2</Id>
+            <RightRoleType>Success</RightRoleType>
+            <ControlUniqueName>cmbControlType</ControlUniqueName>
+            <AceType>Record</AceType>
+            <SourceRight>Delete</SourceRight>
+            <DestinationRight>FullControl</DestinationRight>
+          </RightRole>
+        </RightRoles>
+        <RightRoleRules>
+          <RightRoleRule>
+            <LogicRuleType>RightRoleIf</LogicRuleType>
+            <Id>4f8cb2ac-bb47-48cc-a1a0-a2f640eefb8a</Id>
+            <Name>even</Name>
+            <CompareValue1>tho</CompareValue1>
+            <ValueType1>Singular</ValueType1>
+            <ExpressionType1>None</ExpressionType1>
+            <CompareValue2>i try</CompareValue2>
+            <ValueType2>Singular</ValueType2>
+            <ExpressionType2>None</ExpressionType2>
+            <Operator>Equal</Operator>
+            <FailParent>false</FailParent>
+            <ErrorMessage />
+            <CompareDataType>String</CompareDataType>
+            <SortOrder>0</SortOrder>
+            <RightRoleRules>
+              <RightRoleRule>
+                <LogicRuleType>RightRoleIf</LogicRuleType>
+                <Id>21a65b07-2e45-4b3b-a3a7-dd9a826e0bbf</Id>
+                <Name>goo</Name>
+                <CompareValue1 />
+                <ValueType1>Empty</ValueType1>
+                <ExpressionType1>None</ExpressionType1>
+                <CompareValue2 />
+                <ValueType2>Empty</ValueType2>
+                <ExpressionType2>None</ExpressionType2>
+                <Operator>DataTypeCheck</Operator>
+                <FailParent>false</FailParent>
+                <ErrorMessage />
+                <CompareDataType>Empty</CompareDataType>
+                <SortOrder>0</SortOrder>
+                <RightRoleRules />
+                <RightRoles>
+                  <RightRole>
+                    <Id>3</Id>
+                    <RightRoleType>Success</RightRoleType>
+                    <ControlUniqueName>cmbDataType</ControlUniqueName>
+                    <AceType>Synchronization</AceType>
+                    <SourceRight>Upload</SourceRight>
+                    <DestinationRight>Enabled</DestinationRight>
+                  </RightRole>
+                </RightRoles>
+                <ElseRules />
+                <ElseRoles />
+              </RightRoleRule>
+            </RightRoleRules>
+            <RightRoles>
+              <RightRole>
+                <Id>4</Id>
+                <RightRoleType>Success</RightRoleType>
+                <ControlUniqueName>txtName</ControlUniqueName>
+                <AceType>Record</AceType>
+                <SourceRight>FullControl</SourceRight>
+                <DestinationRight>FullControl</DestinationRight>
+              </RightRole>
+            </RightRoles>
+            <ElseRules />
+            <ElseRoles>
+              <RightRole>
+                <Id>5</Id>
+                <RightRoleType>Success</RightRoleType>
+                <ControlUniqueName>uieSec</ControlUniqueName>
+                <AceType>Synchronization</AceType>
+                <SourceRight>Upload</SourceRight>
+                <DestinationRight>Visible</DestinationRight>
+              </RightRole>
+            </ElseRoles>
+          </RightRoleRule>
+        </RightRoleRules>
+      </SecurityDescriptor>
+    </UIElement>
+  </UIElements>
+  <Users>
+    <User>
+      <Id>11cd9f6e-b1ff-4eef-86b0-5d2d07e5383f</Id>
+      <Name>Steve</Name>
+      <Description>Shimamoto</Description>
+      <IsLocal>false</IsLocal>
+      <IsBuiltIn>false</IsBuiltIn>
+      <IsEnabled>true</IsEnabled>
+    </User>
+    <User>
+      <Id>11cd9f6e-b1ff-4eef-86b0-5d2d07e5383e</Id>
+      <Name>Melvin</Name>
+      <Description>Crate</Description>
+      <IsLocal>false</IsLocal>
+      <IsBuiltIn>false</IsBuiltIn>
+      <IsEnabled>true</IsEnabled>
+    </User>
+  </Users>
+  <Groups>
+    <Group>
+      <Id>f97fb57c-089e-42ec-a2a3-d9cc9a982073</Id>
+      <Name>Campy</Name>
+      <Description>Shimano</Description>
+      <IsLocal>false</IsLocal>
+      <IsBuiltIn>false</IsBuiltIn>
+      <IsEnabled>true</IsEnabled>
+    </Group>
+    <Group>
+      <Id>f97fb57c-089e-42ec-a2a3-d9cc9a982072</Id>
+      <Name>Klein</Name>
+      <Description>Time</Description>
+      <IsLocal>false</IsLocal>
+      <IsBuiltIn>false</IsBuiltIn>
+      <IsEnabled>true</IsEnabled>
+    </Group>
+  </Groups>
+  <GroupMembership>
+    <Entry Group="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Member="11cd9f6e-b1ff-4eef-86b0-5d2d07e5383f" Type="User" />
+    <Entry Group="f97fb57c-089e-42ec-a2a3-d9cc9a982072" Member="11cd9f6e-b1ff-4eef-86b0-5d2d07e5383e" Type="User" />
+    <Entry Group="f97fb57c-089e-42ec-a2a3-d9cc9a982073" Member="f97fb57c-089e-42ec-a2a3-d9cc9a982072" Type="Group" />
+  </GroupMembership>
+</SuplexStore>

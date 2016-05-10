@@ -1,0 +1,107 @@
+﻿<Window x:Class="SuplexApp.RemoteConnectDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Connect to Remote Store" MinHeight="335" Width="450" MaxHeight="335"
+        Closing="Window_Closing">
+
+    <Window.Resources>
+        <Style x:Key="DialogPasswordBox" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <RadioButton Grid.Row="0" Name="rbService" Content="Service Connection" IsChecked="True"/>
+        <Border Grid.Row="1" Margin="10,15,0,15" IsEnabled="{Binding IsChecked, ElementName=rbService}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <!--<RowDefinition Height="Auto" />-->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="URL:" Style="{DynamicResource DialogLabel}" />
+                <TextBox Grid.Row="0" Grid.Column="1" Name="txtServiceUrl" Style="{DynamicResource DialogTextBox}" TextChanged="TextBox_TextChanged"/>
+            </Grid>
+        </Border>
+
+        <RadioButton Grid.Row="2" Name="rbDatabase" Content="Database Connection" IsChecked="False"/>
+        <Border Grid.Row="3" Margin="10,15,0,15" IsEnabled="{Binding IsChecked, ElementName=rbDatabase}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Content="Server:" Style="{DynamicResource DialogLabel}" />
+                <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource DialogTextBox}"
+                 Name="txtServer" Text="{Binding Path=Server, UpdateSourceTrigger=PropertyChanged}"
+                 TextChanged="TextBox_TextChanged"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Database:" Style="{DynamicResource DialogLabel}" />
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Name="cmbDatabase" Text="{Binding Path=Database, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,4"
+                      IsEditable="True" ItemsSource="{Binding}"
+                      SelectionChanged="txtDatabase_SelectionChanged" TextInput="txtDatabase_TextInput"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="..." Margin="4,0,0,4" IsEnabled="False"
+                    Name="cmdBrowseDatabases" Click="cmdBrowseDatabases_Click" />
+                </Grid>
+
+                <GroupBox Grid.Row="2" Grid.ColumnSpan="2" Margin="20,4,0,0" Padding="4,4,0,0">
+                    <GroupBox.Header>
+                        <CheckBox Name="chkUseSqlCredentials" Content="Use SQL Server Credentials"
+                          Checked="chkUseSqlCredentials_CheckChanged" Unchecked="chkUseSqlCredentials_CheckChanged"
+                          IsChecked="{Binding Path=UseSqlCredentials, Mode=OneWay}" />
+                    </GroupBox.Header>
+                    <Grid IsEnabled="{Binding ElementName=chkUseSqlCredentials, Path=IsChecked}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="User Name:" Style="{DynamicResource DialogLabel}" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource DialogTextBox}"
+                         Name="txtUserName" TextChanged="TextBox_TextChanged"
+                         Text="{Binding Path=UserName, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Password:" Style="{DynamicResource DialogLabel}" />
+                        <PasswordBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource DialogPasswordBox}"
+                             Name="txtPassword"
+                             PasswordChanged="txtPassword_PasswordChanged"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </Border>
+
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button Content="Connect" Margin="0,0,10,0" Click="Connect_Click" Name="cmdConnect" IsEnabled="False" IsDefault="True"/>
+            <Button Content="Cancel" Click="Cancel_Click" IsCancel="True"/>
+        </StackPanel>
+    </Grid>
+</Window>

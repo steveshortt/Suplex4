@@ -1,0 +1,104 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="SuplexSecurity" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SuplexSecurity" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="UserInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_USER_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="GROUP_MEMBERSHIP_MASK" type="xs:base64Binary" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GroupMembership">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_GROUP_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="GROUP_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="MEMBER_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="MEMBER_IS_USER" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SecurityPrincipals">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PRINCIPAL_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="PRINCIPAL_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="PRINCIPAL_IS_ENABLED" type="xs:boolean" minOccurs="0" />
+              <xs:element name="PRINCIPAL_IS_USER" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Aces">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_USER_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_GROUP_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_ACE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="ACE_ACCESS_MASK" type="xs:int" minOccurs="0" />
+              <xs:element name="ACE_ACCESS_TYPE1" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ACE_ACCESS_TYPE2" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IS_AUDIT_ACE" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ACE_INHERIT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ACE_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AclInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DACL_INHERIT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_SACL_INHERIT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_SACL_AUDIT_TYPE_FILTER" type="xs:int" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RightRoles">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_RIGHT_ROLE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="RR_ACE_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_RIGHT_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_UI_RIGHT" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_RULE_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_ROLE_TYPE" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RightRoleRules">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_VALIDATION_RULE_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EVENT_BINDING" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_VALUE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EXPRESSION_TYPE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_VALUE_TYPE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_VALUE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EXPRESSION_TYPE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_VALUE_TYPE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_DATA_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_OPERATOR" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_ERROR_MESSAGE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_ERROR_UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_FAIL_PARENT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="VR_RULE_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_SORT_ORDER" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

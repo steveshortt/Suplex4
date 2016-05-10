@@ -1,0 +1,115 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema id="SuplexValidation" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="SuplexValidation" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="UIElements">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_UI_ELEMENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_CONTROL_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DESC" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DESC_TOOLTIP" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DATA_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DATA_TYPE_ERR_MSG" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_FORMAT_STRING" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_ALLOW_UNDECLARED" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="UIE_DACL_INHERIT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_SACL_INHERIT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UIE_SACL_AUDIT_TYPE_FILTER" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ValidationRules">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_VALIDATION_RULE_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EVENT_BINDING" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_VALUE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EXPRESSION_TYPE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_VALUE_TYPE1" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_VALUE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_EXPRESSION_TYPE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_VALUE_TYPE2" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_COMPARE_DATA_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_OPERATOR" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_ERROR_MESSAGE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_ERROR_UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_FAIL_PARENT" type="xs:boolean" minOccurs="0" />
+              <xs:element name="VR_RULE_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+              <xs:element name="VR_SORT_ORDER" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FillMapExpressions">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_FILLMAP_EXPRESSION_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="FME_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="FME_EVENT_BINDING" type="xs:string" minOccurs="0" />
+              <xs:element name="FME_EXPRESSION" type="xs:string" minOccurs="0" />
+              <xs:element name="FME_EXPRESSION_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="FME_IF_CLAUSE" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FME_SORT_ORDER" type="xs:int" minOccurs="0" />
+              <xs:element name="SPLX_UIE_VR_PARENT_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FillMapDataBindings">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_FILLMAP_DATABINDING_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="FMB_UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="FMB_PROPERTY_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="FMB_VALUE" type="xs:string" minOccurs="0" />
+              <xs:element name="FMB_TYPECAST_VALUE" type="xs:boolean" minOccurs="0" />
+              <xs:element name="FMB_OVERRIDE_VALUE" type="xs:boolean" minOccurs="0" />
+              <xs:element name="SPLX_FILLMAP_EXPRESSION_ID" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FillMapDataBindingsPretty">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="Control" type="xs:string" minOccurs="0" />
+              <xs:element name="Property" type="xs:string" minOccurs="0" />
+              <xs:element name="Value" type="xs:string" minOccurs="0" />
+              <xs:element name="Typecast" type="xs:boolean" minOccurs="0" />
+              <xs:element name="Override" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RightRoles">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SPLX_RIGHT_ROLE_ID" type="xs:int" minOccurs="0" />
+              <xs:element name="RR_ACE_TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_RIGHT_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_UIE_UNIQUE_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="RR_UI_RIGHT" type="xs:string" minOccurs="0" />
+              <xs:element name="SPLX_UI_ELEMENT_RULE_ID" msdata:DataType="System.Guid, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="RightRolesPretty">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ID" type="xs:int" minOccurs="0" />
+              <xs:element name="AceType" type="xs:string" minOccurs="0" />
+              <xs:element name="RightName" type="xs:string" minOccurs="0" />
+              <xs:element name="UniqueName" type="xs:string" minOccurs="0" />
+              <xs:element name="UiRight" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

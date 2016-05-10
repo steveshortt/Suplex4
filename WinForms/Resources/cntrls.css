@@ -1,0 +1,155 @@
+body
+{
+	font-size: 10pt;
+	font-family: Verdana, Tahoma;
+}
+TABLE
+{
+	margin: 2px;
+	font-size: 10pt;
+	border-collapse: collapse;
+	width: 100%;
+}
+TABLE.Inner
+{
+}
+TABLE.tLevel0
+{
+	border: #000000 1px solid;
+	background-color: #dddddd;
+}
+.Level0
+{
+	background-color: #000000;
+	color: #ffffff;
+	font-weight: bolder;
+}
+FONT.fLevel0
+{
+	color: #000000;
+	font-weight: bold;
+}
+TABLE.tLevel1
+{
+	border: Green 1px solid;
+	background-color: PaleGreen;
+}
+.Level1
+{
+	background-color: Green;
+	color: #ffffff;
+	font-weight: bolder;
+}
+FONT.fLevel1
+{
+	color: Green;
+	font-weight: bolder;
+}
+TABLE.tLevel2
+{
+	border: Navy 1px solid;
+	background-color: PowderBlue;
+}
+.Level2
+{
+	background-color: Navy;
+	color: #ffffff;
+	font-weight: bolder;
+}
+FONT.fLevel2
+{
+	color: #0000CD;
+	font-weight: bolder;
+}
+TABLE.tLevel3
+{
+	border: #555555 1px solid;
+	background-color: #fafffa;
+}
+.Level3
+{
+	background-color: #555555;
+	color: #ffffff;
+	font-weight: bolder;
+}
+FONT.fLevel3
+{
+	color: #555555;
+	font-weight: bolder;
+}
+FONT.Hi0
+{
+	color: #eded00;
+	font-weight: bolder;
+}
+FONT.Hi1
+{
+	color: #ffaa00;
+	font-weight: 300;
+}
+FONT.Hi2
+{
+	color: #ff3300;
+	font-weight: 600;
+}
+FONT.Hi3
+{
+	color: #800000;
+	font-weight: 900;
+}
+FONT.Hi4
+{
+	color: #0000cd;
+	font-family: 'Courier New', Courier, Fixedsys;
+	font-size: 11pt;
+}
+A
+{
+	text-decoration: none;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+A.Top
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFFFFF; background-color:#33ff33;
+    margin:0px;
+}
+A.Top:hover
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFFFFF; background-color:#33ff33;
+    margin:0px;
+}
+A.Top:visited
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFFFFF; background-color:#33ff33;
+    margin:0px;
+}
+A.Ctrl
+{
+    color: #000000;
+    padding: 0px 0px 0px 0px;
+    text-decoration: underline;
+}
+A.Ctrl:hover
+{
+    color: #0000FF;
+    padding: 0px 0px 0px 0px;
+}
+A.Ctrl:visited
+{
+    color: #000000;
+    padding: 0px 0px 0px 0px;
+    text-decoration: underline;
+}

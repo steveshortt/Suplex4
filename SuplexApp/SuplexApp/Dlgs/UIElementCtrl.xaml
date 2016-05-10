@@ -1,0 +1,405 @@
+﻿<splx:SplxUserControl x:Class="SuplexApp.UIElementCtrl" Name="uieEditor"
+                   KeyDown="uieEditor_KeyDown" Loaded="uieEditor_Loaded"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:local="clr-namespace:SuplexApp"
+                   xmlns:cc="clr-namespace:SuplexApp.Controls"
+                   xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
+                   xmlns:splx="clr-namespace:Suplex.Wpf;assembly=Suplex.Wpf">
+    <UserControl.Resources>
+        <local:FormattingConverter x:Key="formatter" />
+
+        <DataTemplate x:Key="aceRight">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                <TextBlock Text="{local:FormattedBinding Path=Right, FormatString='\{0\}'}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="aceAllowed">
+            <TextBlock Text="{local:FormattedBinding Path=Allowed, ValueIfTrue=Allowed, ValueIfFalse=Denied}"
+                       Foreground="{local:FormattedBinding Path=Allowed, ValueIfTrue=Black, ValueIfFalse=Red}" />
+        </DataTemplate>
+        <DataTemplate x:Key="aceInherit">
+            <TextBlock Text="{local:FormattedBinding Path=Inherit, ValueIfTrue=Inheritable, ValueIfFalse=Static}"
+                       Foreground="{local:FormattedBinding Path=Inherit, ValueIfTrue=Black, ValueIfFalse=Red}" />
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="300"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="5,5,0,5" FontSize="14" FontWeight="Bold" VerticalAlignment="Center" Foreground="DarkBlue"
+                           TextBlock.Text="UI Element: "/>
+                <TextBlock Margin="0,5,0,5" FontSize="14" FontWeight="Bold" VerticalAlignment="Center"
+                           TextBlock.Text="{Binding Path=Name}"/>
+                <TextBlock Margin="0,5,0,5" FontSize="18" FontWeight="Bold" VerticalAlignment="Top" Foreground="Red"
+                           TextBlock.Text="*"
+                           Visibility="{local:FormattedBinding Path=IsDirty, ValueIfTrue=Visible, ValueIfFalse=Hidden}"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+                <Button Name="cmdOk" Content="Save"
+                        VerticalAlignment="Center" MinHeight="20" Padding="5,0,5,0"
+                        IsEnabled="{local:FormattedBinding Path=IsDirty}"
+                        Click="cmdOk_Click"/>
+                <Button Name="cmdCancel" Content="Discard"
+                        VerticalAlignment="Center" MinHeight="20" Padding="5,0,5,0" Margin="5,0,0,0"
+                        Click="cmdCancel_Click"/>
+                <cc:SplitButton x:Name="cmdPanelToggler" Width="100" MinHeight="20" Margin="5,0,5,0"
+                                VerticalAlignment="Center"
+                                Text="Expand All" Tag="Expand"
+                                Click="cmdPanelToggler_Click">
+                    <cc:SplitButton.DropDownContextMenu>
+                        <ContextMenu><!--MenuItem.Click="cmdPanelToggler_Click"-->
+                            <MenuItem Header="Expand All" Tag="Expand" Click="cmdPanelToggler_Click"/>
+                            <MenuItem Header="Collapse All" Tag="Collapse" Click="cmdPanelToggler_Click"/>
+                            <MenuItem Header="Invert All" Tag="Invert" Click="cmdPanelToggler_Click"/>
+                        </ContextMenu>
+                    </cc:SplitButton.DropDownContextMenu>
+                </cc:SplitButton>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Background="White" BorderThickness="0,2,0,0" BorderBrush="Black">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Expander Name="expProps" Grid.Row="0" Margin="4" Padding="3"
+                          HorizontalAlignment="Stretch" Header="Properties" IsExpanded="True">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MaxWidth="650"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <!--<TextBox Grid.Column="0" Grid.Row="0" Name="txtIsDirty" Height="0" Width="0" Visibility="Hidden"
+                                         Text="{Binding Path=IsDirty, UpdateSourceTrigger=PropertyChanged}" />-->
+
+                            <GroupBox Header="Element" Grid.Row="0" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Column="0" Grid.Row="0" Content="Name:" Style="{DynamicResource DialogLabel}"/>
+                                    <splx:SplxTextBox Grid.Column="1" Grid.Row="0" Name="txtName"
+                                                   LostFocus="txtName_LostFocus" Style="{DynamicResource DialogTextBox}"
+                                                   Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <Label Grid.Column="0" Grid.Row="1" Content="Type:" Style="{DynamicResource DialogLabel}"/>
+                                    <splx:SplxComboBox Grid.Column="1" Grid.Row="1" Name="cmbControlType"
+                                                       Style="{DynamicResource DialogControl}"
+                                                       IsEditable="False" IsReadOnly="False"
+                                                       SelectedItem="{Binding Path=ControlType}" />
+
+                                    <Label Grid.Column="0" Grid.Row="2" Style="{DynamicResource DialogLabel}" Content="Unique Name:"/>
+                                    <splx:SplxTextBox Grid.Column="1" Grid.Row="2" Name="txtUniqueName" Style="{DynamicResource DialogTextBox}"
+                                                   Text="{Binding Path=UniqueName, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <Label Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" Style="{DynamicResource DialogLabel}" Content="Description:"/>
+                                    <splx:SplxTextBox Grid.Column="1" Grid.Row="3" Name="txtDesc" Height="69"
+                                                   Style="{DynamicResource DialogTextBox}"
+                                                   AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                                   Text="{Binding Path=Description, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <CheckBox Grid.Column="1" Grid.Row="4" Name="chkDescAsTooltip" Content="Use Description as ToolTip"
+                                              Style="{DynamicResource DialogControl}"
+                                              IsChecked="{Binding Path=UseDescriptionAsTooltip}" />
+
+                                    <Label Grid.Column="0" Grid.Row="5" Style="{DynamicResource DialogLabel}" Content="If is Container:"/>
+                                    <CheckBox Grid.Column="1" Grid.Row="5" Name="chkAllowUndeclared" Content="Allow Undeclared (Dynamic) Elements"
+                                              Style="{DynamicResource DialogControl}"
+                                              IsChecked="{Binding Path=AllowUndeclared}" />
+                                </Grid>
+                            </GroupBox>
+                            <GroupBox Header="Data" Grid.Row="1" Margin="5,5,5,5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Column="0" Grid.Row="0" Style="{DynamicResource DialogLabel}" Content="Data Type:"/>
+                                    <splx:SplxComboBox Name="cmbDataType" Grid.Column="1" Grid.Row="0"
+                                                       Style="{DynamicResource DialogControl}"
+                                                       IsEditable="False" IsReadOnly="False"
+                                                       SelectedItem="{Binding Path=DataType}" />
+
+                                    <Label Grid.Column="0" Grid.Row="1"
+                                           VerticalAlignment="Stretch" VerticalContentAlignment="Top" Style="{DynamicResource DialogLabel}">
+                                        <TextBlock TextWrapping="Wrap" TextAlignment="Right" Text="Data Type Error Message:" />
+                                    </Label>
+                                    <splx:SplxTextBox Grid.Column="1" Grid.Row="1" Name="txtDataTypeErrMsg" Height="69"
+                                                   Style="{DynamicResource DialogTextBox}"
+                                                   AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                                   Text="{Binding Path=DataTypeErrorMessage, UpdateSourceTrigger=PropertyChanged}" />
+
+                                    <Label Grid.Column="0" Grid.Row="2" Style="{DynamicResource DialogLabel}" Content="Format String:"/>
+                                    <splx:SplxTextBox Grid.Column="1" Grid.Row="2" Name="txtFormatString"
+                                                   Style="{DynamicResource DialogTextBox}"
+                                                   Text="{Binding Path=FormatString, UpdateSourceTrigger=PropertyChanged}" />
+                                </Grid>
+                            </GroupBox>
+                            <splx:ValidationSummary Name="vs" Margin="5,5,5,5" />
+                        </StackPanel>
+                    </Grid>
+                </Expander>
+                <Expander Name="expPerms" Grid.Row="1"
+                          HorizontalAlignment="Stretch" Margin="4" Padding="-1" IsExpanded="False"
+                          Visibility="{local:FormattedBinding ElementName=uieEditor, Path=SplxStoreHasGroups, ValueIfTrue=Visible, ValueIfFalse=Collapsed}"
+                          Header="{local:FormattedBinding Path=SecurityDescriptor.Dacl.Count, FormatString='Permissions: \{0\}'}">
+                    <DataGrid Name="dgPerms" AutoGenerateColumns="False"
+                                 ItemsSource="{Binding Path=SecurityDescriptor.Dacl}"
+                                 CellEditEnding="dgPerms_CellEditEnding">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Group" MinWidth="100"
+                                                       SortMemberPath="SecurityPrincipal.Name">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="lstGroups"
+                                                  ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UIElementCtrl}}, Path=SplxGroups}"
+                                                  DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding SecurityPrincipal}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SecurityPrincipal.Name}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Right" MinWidth="75"
+                                                       SortMemberPath="AceType" CellTemplate="{StaticResource aceRight}">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <local:AceRightsCtrl Margin="2,0,2,2"
+                                                             AceType="{Binding Path=AceType, Mode=TwoWay}" AceRight="{Binding Path=Right, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Allowed" MinWidth="75"
+                                                       SortMemberPath="Allowed" CellTemplate="{StaticResource aceAllowed}">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=Allowed}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Inherit" MinWidth="75"
+                                                       SortMemberPath="Inherit" CellTemplate="{StaticResource aceInherit}">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=Inherit}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander Name="expRightBindings" Grid.Row="2" Margin="4"
+                          HorizontalAlignment="Stretch" IsExpanded="False">
+                    <Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{local:FormattedBinding Path=SecurityDescriptor.CompositeRightRuleCount, FormatString='Right Bindings: Rules: \{0\}'}"/>
+                            <TextBlock Text="{local:FormattedBinding Path=SecurityDescriptor.CompositeRightRoleCount, FormatString=', Roles: \{0\}'}"/>
+                        </StackPanel>
+                    </Expander.Header>
+                    <StackPanel>
+                        <ToolBar>
+                            <Button Content="Add Root Condition" Name="cmdRightBindingAddCondition" IsEnabled="True" Click="cmdRightBindingAddCondition_Click" />
+                            <Button Content="Add Else Condition" Name="cmdRightBindingAddElseCondition" IsEnabled="False" Click="cmdRightBindingAddCondition_Click" />
+                            <Button Content="Add Right Role" Name="cmdRightBindingAddRole" IsEnabled="False" Click="cmdRightBindingAddRole_Click" />
+                            <Button Content="Add Else Role" Name="cmdRightBindingAddElseRole" IsEnabled="False" Click="cmdRightBindingAddRole_Click" />
+                            <Button Content="Edit" Name="cmdRightBindingEdit" IsEnabled="False" Click="cmdRightBindingEdit_Click" />
+                            <Button Content="Delete" Name="cmdRightBindingDel" IsEnabled="False" Click="cmdRightBindingDel_Click" />
+                        </ToolBar>
+                        <cc:TreeListView x:Name="tlvRB" BorderThickness="0" Margin="0" ItemsSource="{Binding}"
+                                         SelectedItemChanged="tlvRB_SelectedItemChanged" MouseDoubleClick="tlvRB_MouseDoubleClick">
+                            <cc:TreeListView.Resources>
+                                <local:RightRoleTemplateSelector x:Key="rightRoleTemplateSelector"/>
+                                <HierarchicalDataTemplate DataType="{x:Type splxApi:RightRoleRule}" ItemsSource="{Binding Path=ChildObjects}"/>
+                                <DataTemplate x:Key="sourceRight">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{local:FormattedBinding Path=AceType, FormatString='\{0\}\\'}"/>
+                                        <Label Content="{local:FormattedBinding Path=RightName, FormatString='\{0\}'}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate x:Key="sourceToDest">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{local:FormattedBinding Path=UIRight, FormatString='UI\\\{0\}'}" />
+                                        <Path Fill="{StaticResource GlyphBrush}" Data="M7,0L14,3.5 7,7 7,4.5 0,4.5 0,2.5 7,2.5z" VerticalAlignment="Center" Margin="2,0,2,0"/>
+                                        <Label Content="{Binding Path=ControlUniqueName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </cc:TreeListView.Resources>
+                            <cc:TreeListView.ContextMenu>
+                                <ContextMenu Name="ctxRightBindingTree" Opened="ctxRightBindingTree_Opened">
+                                    <MenuItem Name="mnuEditItem" Header="Edit" Click="mnuEditRightBinding_Click"/>
+                                    <Separator Name="sepTopItems"/>
+                                    <MenuItem Name="mnuNewValidationRule" Header="New Validation Rule" Tag="ValidationRule" Click="AddNewRightBinding_Click"/>
+                                    <MenuItem Name="mnuNewElseRule" Header="New Else Rule" Tag="ElseRule" Click="AddNewRightBinding_Click"/>
+                                    <Separator Name="sepNewItems"/>
+                                    <MenuItem Name="mnuExpandAll" Header="Expand All Children" Tag="childExpand" Click="ExpandAllRightBinding_Click"/>
+                                    <MenuItem Name="mnuCollapseAll" Header="Collapse All Children" Tag="childCollapse" Click="CollapseAllRightBinding_Click"/>
+                                    <Separator Name="sepChildItems"/>
+                                    <MenuItem Name="mnuDeleteItem" Header="Delete selected item" Click="DeleteRightBinding_Click"/>
+                                </ContextMenu>
+                            </cc:TreeListView.ContextMenu>
+                            <cc:TreeListView.Columns>
+                                <GridViewColumn Header="Condition" Width="200" CellTemplateSelector="{StaticResource rightRoleTemplateSelector}"/>
+                                <!--<GridViewColumn Header="Source" Width="170" CellTemplate="{StaticResource sourceRight}"/>-->
+                                <!--<GridViewColumn Width="200" Header="Destination" CellTemplate="{StaticResource sourceToDest}"/>-->
+                                <GridViewColumn DisplayMemberBinding="{local:FormattedBinding Path=UIRight, FormatString='UI\\\{0\}'}" Header="Destination" Width="100"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=ControlUniqueName}" Header="Unique Name" Width="115"/>
+                            </cc:TreeListView.Columns>
+                        </cc:TreeListView>
+                    </StackPanel>
+                </Expander>
+                <Expander Name="expAudit" Grid.Row="3" Margin="4" Padding="-1"
+                          HorizontalAlignment="Stretch" IsExpanded="False"
+                          Header="{local:FormattedBinding Path=SecurityDescriptor.Sacl.Count, FormatString='Audit: \{0\}'}">
+                    <DataGrid Name="dgAudit" AutoGenerateColumns="False"
+                                 ItemsSource="{Binding Path=SecurityDescriptor.Sacl}"
+                                 CellEditEnding="dgAudit_CellEditEnding">
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
+                            </Style>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Group" MinWidth="100"
+                                                       SortMemberPath="SecurityPrincipal.Name">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UIElementCtrl}}, Path=SplxGroups}"
+                                                  DisplayMemberPath="Name" SelectedValuePath="Name" SelectedItem="{Binding SecurityPrincipal}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding SecurityPrincipal.Name}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Right" MinWidth="75"
+                                                       SortMemberPath="AceType" CellTemplate="{StaticResource aceRight}">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <local:AceRightsCtrl Margin="2,0,2,2"
+                                                             AceType="{Binding Path=AceType, Mode=TwoWay}" AceRight="{Binding Path=Right, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Success" Width="Auto" SortMemberPath="Allowed">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=Allowed}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{local:FormattedBinding Path=Allowed, ValueIfTrue=Yes, ValueIfFalse=No}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Failure" Width="Auto" SortMemberPath="Denied">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=Denied}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{local:FormattedBinding Path=Denied, ValueIfTrue=Yes, ValueIfFalse=No}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Inherit" MinWidth="75"
+                                                       SortMemberPath="Inherit" CellTemplate="{StaticResource aceInherit}">
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Path=Inherit}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Expander>
+                <Expander Name="expSettings" Grid.Row="4" Margin="4" Padding="3"
+                          HorizontalAlignment="Stretch" IsExpanded="False"
+                          Header="{local:FormattedBinding Path=SecurityDescriptor.IsDefaultInheritanceSettings, FormatString='Security Inheritance Settings: \{0\}', ValueIfTrue=Default, ValueIfFalse=Modified}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="225"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Margin="5" Name="lblDaclInherit" Content="Permission Inheritance" VerticalAlignment="Center"
+                               Foreground="{local:FormattedBinding Path=SecurityDescriptor.DaclInherit, ValueIfTrue=Black, ValueIfFalse=Red}"/>
+                        <CheckBox Grid.Column="1" Grid.Row="0" Content="Allowed" VerticalAlignment="Center" Margin="5"
+                                  IsChecked="{Binding Path=SecurityDescriptor.DaclInherit}" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap" Margin="20,0,10,10">If blocked, this object will not inherit permissions from parent objects.</TextBlock>
+
+                        <Label Grid.Column="0" Grid.Row="2" Margin="5" Name="lblSaclInherit" Content="Audit Inheritance" VerticalAlignment="Center"
+                               Foreground="{local:FormattedBinding Path=SecurityDescriptor.SaclInherit, ValueIfTrue=Black, ValueIfFalse=Red}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="3" TextWrapping="Wrap" Margin="20,0,10,10">If blocked, this object will not inherit audit settings from parent objects.</TextBlock>
+                        <CheckBox Grid.Column="1" Grid.Row="2" Content="Allowed" VerticalAlignment="Center" Margin="5"
+                                  IsChecked="{Binding Path=SecurityDescriptor.SaclInherit}" />
+
+                        <GroupBox Grid.Column="0" Grid.Row="4" Margin="20,5,5,5" Name="grpAuditFilter">
+                            <GroupBox.Header>
+                                <CheckBox Name="chkAuditFilter" Content="Specify Audit Filter"
+                                          IsChecked="{local:FormattedBinding Path=SecurityDescriptor.IsDefaultSaclAuditTypeFilter, Mode=OneTime, ValueIfTrue=False, ValueIfFalse=True}"
+                                          Checked="chkAuditFilter_Checked"/>
+                            </GroupBox.Header>
+                            <StackPanel IsEnabled="{Binding ElementName=chkAuditFilter, Path=IsChecked}">
+                                <ListBox Grid.Column="0" Grid.Row="4" Name="lstAuditFilter" BorderThickness="0"
+                                         SelectionChanged="lstAuditFilter_SelectionChanged"/>
+                                <Button Content="Use Deafult Filter" HorizontalAlignment="Center" Margin="5"
+                                        Name="cmdSetDefaultAudutFilter" Click="cmdSetDefaultAudutFilter_Click"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Expander>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</splx:SplxUserControl>

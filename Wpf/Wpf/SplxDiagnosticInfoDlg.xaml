@@ -1,0 +1,21 @@
+﻿<Window x:Class="Suplex.Wpf.SplxDiagnosticInfoDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SplxDiagnosticInfoDlg" Height="700" Width="1000">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Security Html" >
+                <WebBrowser Name="securityHtml" />
+            </TabItem>
+            <TabItem Header="Security Text" >
+                <TextBox Name="securityText" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            </TabItem>
+            <TabItem Header="Validation Html" >
+                <WebBrowser Name="validationHtml" />
+            </TabItem>
+            <TabItem Header="Validation Text" >
+                <TextBox Name="validationText" IsReadOnly="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

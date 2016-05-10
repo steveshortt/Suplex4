@@ -1,0 +1,124 @@
+﻿<Window x:Class="WpfRowLevelSecurityAdmin.MainDlg"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:splx="clr-namespace:Suplex.Wpf;assembly=Suplex.Wpf"
+        xmlns:local="clr-namespace:WpfRowLevelSecurityAdmin"
+        Title="Row Level Security Admin POC" Height="800" Width="1000"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,5,0,10" />
+        </Style>
+    </Window.Resources>
+    <splx:SplxGrid Name="layoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <GroupBox Header="Select" Padding="3">
+                    <StackPanel>
+                        <TextBlock Text="Last:" />
+                        <TextBox Name="txtLastMasked" IsReadOnly="True"/>
+                        <TextBlock Name="tbAverageMasked" Text="Average:" />
+                        <TextBox Name="txtAvgMasked" IsReadOnly="True"/>
+                        <Button Name="cmdQueryMasked" Content="Query Masked" Click="cmdQuery_Click" />
+                        <TextBlock Text="Last:" />
+                        <TextBox Name="txtLastNative" IsReadOnly="True"/>
+                        <TextBlock Name="tbAvgNonMasked" Text="Average:" />
+                        <TextBox Name="txtAvgNative" IsReadOnly="True"/>
+                        <Button Name="cmdQueryNonMasked" Content="Query NonMasked" Click="cmdQuery_Click" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Name="cmdExecuteBoth" Content="Query Both" Click="cmdQueryBoth_Click" Margin="0,0,5,0" />
+                            <TextBlock Grid.Column="1" Text="Iterations:" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0" />
+                            <TextBox Grid.Column="2" Name="txtExecuteBothCount" Text="10" HorizontalAlignment="Right" Width="50"/>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Create Data" Margin="0,10,0,0" Padding="3">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Mask Size:" Margin="0,0,5,0"/>
+                            <CheckBox Name="chkDDLMax" Content="DDL Size: (max)" />
+                        </StackPanel>
+                        <TextBox Name="txtMaskSize" />
+                        <TextBlock Text="RowCount:" />
+                        <TextBox Name="txtRowCount" />
+                        <CheckBox Name="chkClearFirst" Content="Clear Existing Data" Margin="0,10,0,0"/>
+                        <CheckBox Name="chkExecuteDDL" Content="Execute DDL" />
+                        <Button Name="cmdCreateData" Content="Create Data" Click="cmdCreateData_Click" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+
+        <GridSplitter Grid.Row="0" Grid.Column="0" Width="5" Background="DarkGray" />
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <ListView Grid.Row="0" ItemsSource="{Binding}" Name="lstLookupData"
+                      MouseDoubleClick="lstLookupData_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Id}" Header="Lookup_Id" Width="75"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=RlsMask}" Header="Mask" Width="150"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=Value}" Header="Data" Width="100"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <local:LookupPermissionsDlg Grid.Row="1" x:Name="lookupPerms" Saved="lookupPerms_Saved"/>
+
+            <ListView Grid.Row="1" ItemsSource="{Binding}" Name="lstResults" Visibility="Collapsed">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=rls_mask}" Header="Mask" Width="75"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=data}" Header="Data" Width="100"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Path=foo_lookup_id}" Header="Lookup_Id" Width="75"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <StatusBar Grid.Row="1" Grid.ColumnSpan="3">
+            <StatusBarItem Name="sbiCreateData" Visibility="Collapsed">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Status:" Margin="0,0,5,0"/>
+                    <ProgressBar Name="pbCreateData" Width="250" />
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Name="slMaskSize" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Name="slRows" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="LastMask:" Margin="0,0,3,0" VerticalAlignment="Center" />
+                    <TextBox Name="slMask" IsReadOnly="True" />
+                </StackPanel>
+            </StatusBarItem>
+        </StatusBar>
+    </splx:SplxGrid>
+</Window>

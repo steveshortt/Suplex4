@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsApp", "WinFormsApp\WinFormsApp.csproj", "{0FC2139F-DA46-4197-8AFC-130C70846CD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\Core\Core\Core.csproj", "{DEFD38C8-6F2F-4863-A3F1-2B2BB74AA7A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForms", "..\..\WinForms\WinForms.csproj", "{6D8BEF63-529A-4545-A80B-5568A50AAC24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FC2139F-DA46-4197-8AFC-130C70846CD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC2139F-DA46-4197-8AFC-130C70846CD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC2139F-DA46-4197-8AFC-130C70846CD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC2139F-DA46-4197-8AFC-130C70846CD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEFD38C8-6F2F-4863-A3F1-2B2BB74AA7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEFD38C8-6F2F-4863-A3F1-2B2BB74AA7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEFD38C8-6F2F-4863-A3F1-2B2BB74AA7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEFD38C8-6F2F-4863-A3F1-2B2BB74AA7A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D8BEF63-529A-4545-A80B-5568A50AAC24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D8BEF63-529A-4545-A80B-5568A50AAC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D8BEF63-529A-4545-A80B-5568A50AAC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D8BEF63-529A-4545-A80B-5568A50AAC24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,183 @@
+span.suplex body
+{
+	font-size: 10pt;
+	font-family: Verdana, Tahoma;
+}
+span.suplex .HeaderTitle
+{
+	background-color: #ff6600;
+	color: #ffff00;
+	font-weight: bolder;
+	font-size: 12pt;
+}
+span.suplex TABLE
+{
+	margin: 2px;
+	font-size: 10pt;
+	font-family: Verdana, Tahoma;
+	border-collapse: collapse;
+	width: 100%;
+}
+span.suplex TABLE.Inner
+{
+}
+span.suplex TABLE.tLevel0
+{
+	border: #000000 1px solid;
+	background-color: #dddddd;
+}
+span.suplex .Level0
+{
+	background-color: #000000;
+	color: #ffffff;
+	font-weight: bolder;
+}
+span.suplex FONT.fLevel0
+{
+	color: #000000;
+	font-weight: bold;
+}
+span.suplex TABLE.tLevel1
+{
+	border: Green 1px solid;
+	background-color: PaleGreen;
+}
+span.suplex .Level1
+{
+	background-color: Green;
+	color: #ffffff;
+	font-weight: bolder;
+}
+span.suplex FONT.fLevel1
+{
+	color: Green;
+	font-weight: bolder;
+}
+span.suplex TABLE.tLevel2
+{
+	border: Navy 1px solid;
+	background-color: PowderBlue;
+}
+span.suplex .Level2
+{
+	background-color: Navy;
+	color: #ffffff;
+	font-weight: bolder;
+}
+span.suplex FONT.fLevel2
+{
+	color: #0000CD;
+	font-weight: bolder;
+}
+span.suplex TABLE.tLevel3
+{
+	border: #555555 1px solid;
+	background-color: #fafffa;
+}
+span.suplex .Level3
+{
+	background-color: #555555;
+	color: #ffffff;
+	font-weight: bolder;
+}
+span.suplex FONT.fLevel3
+{
+	color: #555555;
+	font-weight: bolder;
+}
+
+span.suplex TABLE.tLevel4
+{
+	border: #555555 1px solid;
+	background-color: #cdcdcd;
+}
+span.suplex .Level4
+{
+	background-color: #cdcdcd;
+	color: #555555;
+	font-weight: bolder;
+}
+span.suplex FONT.fLevel4
+{
+	color: #555555;
+	font-weight: bolder;
+}
+
+span.suplex FONT.Hi0
+{
+	color: #eded00;
+	font-weight: bolder;
+}
+span.suplex FONT.Hi1
+{
+	color: #ffaa00;
+	font-weight: 300;
+}
+span.suplex FONT.Hi2
+{
+	color: #ff3300;
+	font-weight: 600;
+}
+span.suplex FONT.Hi3
+{
+	color: #800000;
+	font-weight: 900;
+}
+span.suplex FONT.Hi4
+{
+	color: #0000cd;
+	font-family: 'Courier New', Courier, Fixedsys;
+	font-size: 11pt;
+}
+span.suplex A
+{
+	font-size: 10pt;
+	font-family: Verdana, Tahoma;
+	text-decoration: none;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+span.suplex A.Top
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFff00; background-color:#ff6600;
+    margin:0px;
+}
+span.suplex A.Top:hover
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFff00; background-color:#ff6600;
+    margin:0px;
+}
+span.suplex A.Top:visited
+{
+    border:1px solid;
+    border-color: #000000;
+    padding:0px 3px 0px 3px;
+    font:bold 10px verdana,sans-serif; 
+    color:#FFff00; background-color:#ff6600;
+    margin:0px;
+}
+span.suplex A.Ctrl
+{
+    color: #000000;
+    padding: 0px 0px 0px 0px;
+    text-decoration: underline;
+}
+span.suplex A.Ctrl:hover
+{
+    color: #0000FF;
+    padding: 0px 0px 0px 0px;
+}
+span.suplex A.Ctrl:visited
+{
+    color: #000000;
+    padding: 0px 0px 0px 0px;
+    text-decoration: underline;
+}
