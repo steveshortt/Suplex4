@@ -324,7 +324,7 @@ namespace Suplex.Forms.ObjectModel.Api
 
 		private SortedList GetGroupInputParms(Group group)
 		{
-			int _maskSize = 128;
+			int _maskSize = 2048;
 
 			sSortedList s = new sSortedList();	//"@GROUP_NAME", group.Name
 			s.Add( "@GROUP_DESC", group.Description );

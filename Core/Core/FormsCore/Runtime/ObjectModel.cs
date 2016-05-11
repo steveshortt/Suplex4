@@ -4172,7 +4172,7 @@ namespace Suplex.Forms.ObjectModel.Legacy
 		private bool _showDetailPanels = false;
 		private bool _enableChildGroupsLazyLoad = false;
 
-		private int _maskSize = 128;
+		private int _maskSize = 2048;
 		private BitArray _mask = null;
 
 		public Group()
@@ -4482,7 +4482,7 @@ namespace Suplex.Forms.ObjectModel.Legacy
 
 	public class GroupCollection : ObservableObjectModelCollection<Group>
 	{
-		private int _maskSize = 128;
+		private int _maskSize = 2048;
 		private BitArray _allMasks = null;
 
 		public GroupCollection()

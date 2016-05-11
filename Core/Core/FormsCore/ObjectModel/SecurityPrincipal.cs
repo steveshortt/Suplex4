@@ -352,8 +352,8 @@ namespace Suplex.Forms.ObjectModel.Api
 		private bool _showDetailPanels = false;
 		private bool _enableChildGroupsLazyLoad = false;
 
-		private int _defaultMaskSize = 128;
-		private int _maskSize = 128;
+		private int _defaultMaskSize = 2048;
+		private int _maskSize = 2048;
 		private BitArray _mask = null;
 
 		public Group()
@@ -627,7 +627,7 @@ namespace Suplex.Forms.ObjectModel.Api
 	[CollectionDataContract()]
 	public class GroupCollection : ObservableObjectModelCollection<Group>
 	{
-		private int _maskSize = 128;
+		private int _maskSize = 2048;
 		private BitArray _allMasks = null;
 
 		public GroupCollection()
@@ -724,6 +724,12 @@ namespace Suplex.Forms.ObjectModel.Api
 			{
 				foreach( Group g in groups )
 				{
+					if( g.Mask.Length < _maskSize )
+					{
+						byte[] mask = new byte[_maskSize / 8];
+						g.Mask.CopyTo( mask, 0 );
+						g.Mask = new BitArray( mask );
+					}
 					_allMasks.Or( g.Mask );
 				}
 			}
@@ -735,6 +741,12 @@ namespace Suplex.Forms.ObjectModel.Api
 			{
 				foreach( Group g in groups )
 				{
+					if( g.Mask.Length < _maskSize )
+					{
+						byte[] mask = new byte[_maskSize / 8];
+						g.Mask.CopyTo( mask, 0 );
+						g.Mask = new BitArray( mask );
+					}
 					_allMasks.Xor( g.Mask );
 				}
 			}
