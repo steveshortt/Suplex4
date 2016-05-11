@@ -316,8 +316,8 @@ namespace Suplex.BitLib
 			for( int i = 0; i < num; i++ )
 			{
 				//if the 32nd bit of the array is set to 1, test for int.MinValue
-				this.m_array[i] &= value.m_array[i];
-				if( this.m_array[i] > 0 || this.m_array[i] == int.MinValue )
+				int v = this.m_array[i] & value.m_array[i];
+				if( v > 0 || (v & int.MinValue) == int.MinValue )
 				{
 					haveMatch = true;
 					break;
