@@ -316,6 +316,8 @@ namespace Suplex.Forms.ObjectModel.Api
 				this.DeleteSaclIds.Add( ace.Id );
 			}
 			sourceObject.Sacl.RemovedItems.Clear();
+
+			//todo: !!! must add support for DeleteRightRoleIds & DeleteRightRoleRuleIds
 		}
 
 		internal bool HaveDeleteIds

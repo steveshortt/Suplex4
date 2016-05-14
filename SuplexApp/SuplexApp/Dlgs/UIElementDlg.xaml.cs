@@ -431,10 +431,39 @@ namespace SuplexApp
 			ctxUieTree.IsOpen = !ctxUieTree.IsOpen;
 		}
 
+		private void tvUie_ScrollChanged(object sender, ScrollChangedEventArgs e)
+		{
+			//fixes the issue where when scrolling, if the user has selected an item in the tree and moves the
+			//mouse pointer off the scrollbar, the tvUie_MouseMove will detect the diff.X/Y has been exceeded
+			//and allow the drag/drop action to take place.
+			_lastClickWasLeftButton = false;
+		}
+
 		private void tvUie_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			_lastClickWasLeftButton = true;
 			_dragDropStartPoint = e.GetPosition( null );
+			_lastClickWasLeftButton = !IsMouseOverScrollbar( sender, _dragDropStartPoint );
+		}
+
+		private bool IsMouseOverScrollbar(object sender, Point mousePosition)
+		{
+			if( sender is Visual )
+			{
+				HitTestResult hit = VisualTreeHelper.HitTest( sender as Visual, mousePosition );
+
+				if( hit == null ) return false;
+
+				DependencyObject dObj = hit.VisualHit;
+				while( dObj != null )
+				{
+					if( dObj is ScrollBar ) return true;
+
+					if( (dObj is Visual) || (dObj is System.Windows.Media.Media3D.Visual3D) ) dObj = VisualTreeHelper.GetParent( dObj );
+					else dObj = LogicalTreeHelper.GetParent( dObj );
+				}
+			}
+
+			return false;
 		}
 
 		private void tvUie_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -847,17 +876,10 @@ namespace SuplexApp
 		#endregion
 
 		#region treeview drag/drop
-		private void tvUie_ScrollChanged(object sender, ScrollChangedEventArgs e)
-		{
-			//fixes the issue where when scrolling, if the user has selected an item in the tree and moves the
-			//mouse pointer off the scrollbar, the tvUie_MouseMove will detect the diff.X/Y has been exceeded
-			//and allow the drag/drop action to take place.
-			_lastClickWasLeftButton = false;
-		}
-
 		private void tvUie_MouseMove(object sender, MouseEventArgs e)
 		{
-			if( e.LeftButton == MouseButtonState.Pressed && _lastClickWasLeftButton )
+			if( cmdAllowDragDrop.IsChecked.Value &&
+				e.LeftButton == MouseButtonState.Pressed && _lastClickWasLeftButton )
 			{
 				Point mousePos = e.GetPosition( tvUie );
 				Vector diff = _dragDropStartPoint - mousePos;
