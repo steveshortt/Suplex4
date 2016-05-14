@@ -586,26 +586,40 @@ namespace SuplexApp
 		private void dgPerms_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
 		{
 			api.AccessControlEntryBase ace = (api.AccessControlEntryBase)e.Row.Item;
-			if( ace.IsDirty )
-			{
-				this.SourceObject.IsDirty = true;
-			}
 			if( e.Column.Header.ToString() == "Group" && ace.SecurityPrincipal == null )
 			{
 				e.Cancel = true;
 			}
 		}
 
+		//setting the owner reference is used in tracking SourceObject IsDirty state
+		//maybe a little hackish
+		private void dgPerms_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if( dgPerms.SelectedItem != null && dgPerms.SelectedItem is api.AccessControlEntryBase )
+			{
+				api.AccessControlEntryBase ace = (api.AccessControlEntryBase)dgPerms.SelectedItem;
+				ace.Owner = this.SourceObject;
+			}
+		}
+
 		private void dgAudit_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
 		{
 			api.AccessControlEntryAuditBase ace = (api.AccessControlEntryAuditBase)e.Row.Item;
-			if( ace.IsDirty )
-			{
-				this.SourceObject.IsDirty = true;
-			}
 			if( e.Column.Header.ToString() == "Group" && ace.SecurityPrincipal == null )
 			{
 				e.Cancel = true;
+			}
+		}
+
+		//setting the owner reference is used in tracking SourceObject IsDirty state
+		//maybe a little hackish
+		private void dgAudit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if( dgAudit.SelectedItem != null && dgAudit.SelectedItem is api.AccessControlEntryBase )
+			{
+				api.AccessControlEntryBase ace = (api.AccessControlEntryBase)dgAudit.SelectedItem;
+				ace.Owner = this.SourceObject;
 			}
 		}
 		#endregion

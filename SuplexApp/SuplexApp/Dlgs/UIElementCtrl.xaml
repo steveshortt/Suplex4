@@ -177,8 +177,9 @@
                           Visibility="{local:FormattedBinding ElementName=uieEditor, Path=SplxStoreHasGroups, ValueIfTrue=Visible, ValueIfFalse=Collapsed}"
                           Header="{local:FormattedBinding Path=SecurityDescriptor.Dacl.Count, FormatString='Permissions: \{0\}'}">
                     <DataGrid Name="dgPerms" AutoGenerateColumns="False"
-                                 ItemsSource="{Binding Path=SecurityDescriptor.Dacl}"
-                                 CellEditEnding="dgPerms_CellEditEnding">
+                              ItemsSource="{Binding Path=SecurityDescriptor.Dacl}"
+                              SelectionChanged="dgPerms_SelectionChanged"
+                              CellEditEnding="dgPerms_CellEditEnding">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>
@@ -186,7 +187,7 @@
                         </DataGrid.Resources>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Group" MinWidth="100"
-                                                       SortMemberPath="SecurityPrincipal.Name">
+                                                    SortMemberPath="SecurityPrincipal.Name">
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
                                         <ComboBox Name="lstGroups"
@@ -291,8 +292,9 @@
                           HorizontalAlignment="Stretch" IsExpanded="False"
                           Header="{local:FormattedBinding Path=SecurityDescriptor.Sacl.Count, FormatString='Audit: \{0\}'}">
                     <DataGrid Name="dgAudit" AutoGenerateColumns="False"
-                                 ItemsSource="{Binding Path=SecurityDescriptor.Sacl}"
-                                 CellEditEnding="dgAudit_CellEditEnding">
+                              ItemsSource="{Binding Path=SecurityDescriptor.Sacl}"
+                              SelectionChanged="dgAudit_SelectionChanged"
+                              CellEditEnding="dgAudit_CellEditEnding">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="IsSelected" Value="{Binding Path=IsSelected}"/>

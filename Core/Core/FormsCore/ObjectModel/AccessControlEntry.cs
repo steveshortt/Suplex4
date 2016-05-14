@@ -165,6 +165,7 @@ namespace Suplex.Forms.ObjectModel.Api
 				if( _isDirty != value )
 				{
 					_isDirty = value;
+					SetOwnerDirtyChecked();
 					this.OnPropertyChanged( "IsDirty" );
 				}
 			}
@@ -212,6 +213,16 @@ namespace Suplex.Forms.ObjectModel.Api
 		//}
 		//[XmlAttribute()]
 		//public Guid UIElementId { get; set; }
+
+		[XmlIgnore]
+		public IObjectModel Owner { get; set; }
+		void SetOwnerDirtyChecked()
+		{
+			if( Owner != null && this.IsDirty )
+			{
+				Owner.IsDirty = true;
+			}
+		}
 
 		[XmlIgnore]
 		public st.ISecurityPrincipal SecurityPrincipal
@@ -280,7 +291,16 @@ namespace Suplex.Forms.ObjectModel.Api
 		}
 		#endregion
 
-		public void Synchronize(AccessControlEntryBase ace)
+		public virtual bool WantsSynchronize(AccessControlEntryBase ace)
+		{
+			return
+				this.Allowed != ace.Allowed ||
+				this.Inherit != ace.Inherit ||
+				this.Right != ace.Right ||
+				this.SecurityPrincipal != ace.SecurityPrincipal;
+		}
+
+		public virtual void Synchronize(AccessControlEntryBase ace)
 		{
 			this.Allowed = ace.Allowed;
 			this.Inherit = ace.Inherit;
@@ -352,20 +372,32 @@ namespace Suplex.Forms.ObjectModel.Api
 			return ace;
 		}
 
-		public void Synchronize(AccessControlEntryAuditBase ace)
+		public override bool WantsSynchronize(AccessControlEntryBase ace)
 		{
-			this.Allowed = ace.Allowed;
-			this.Denied = ace.Denied;
-			this.Inherit = ace.Inherit;
-			this.Right = ace.Right;
-			//this.SecurityPrincipal = ace.SecurityPrincipal;
-
-			if( this.SecurityPrincipal != ace.SecurityPrincipal )
-			{
-				((SecurityPrincipalBase)this.SecurityPrincipal).PropertyChanged -= base.SecurityPrincipal_PropertyChanged;
-				this.SecurityPrincipal = ace.SecurityPrincipal;
-			}
+			return base.WantsSynchronize( ace ) ||
+				this.Denied != ((AccessControlEntryAuditBase)ace).Denied;
 		}
+
+		public override void Synchronize(AccessControlEntryBase ace)
+		{
+			base.Synchronize( ace );
+			this.Denied = ((AccessControlEntryAuditBase)ace).Denied;
+		}
+
+		//public void Synchronize(AccessControlEntryAuditBase ace)
+		//{
+		//	this.Allowed = ace.Allowed;
+		//	this.Denied = ace.Denied;
+		//	this.Inherit = ace.Inherit;
+		//	this.Right = ace.Right;
+		//	//this.SecurityPrincipal = ace.SecurityPrincipal;
+
+		//	if( this.SecurityPrincipal != ace.SecurityPrincipal )
+		//	{
+		//		((SecurityPrincipalBase)this.SecurityPrincipal).PropertyChanged -= base.SecurityPrincipal_PropertyChanged;
+		//		this.SecurityPrincipal = ace.SecurityPrincipal;
+		//	}
+		//}
 	}
 
 	public interface IAceRight<T>
@@ -503,12 +535,16 @@ namespace Suplex.Forms.ObjectModel.Api
 	[CollectionDataContract()]
 	public class AceCollection : ObservableObjectModelCollection<AccessControlEntryBase>, ISuplexObjectList
 	{
+		List<AccessControlEntryBase> _removedItems = new List<AccessControlEntryBase>();
+
 		public AceCollection() : base() { }
 		public AceCollection(IObjectModel owner)
 			: base( owner )
 		{ }
 
 		internal SuplexStore OwnerStore { get; set; }
+
+		public List<AccessControlEntryBase> RemovedItems { get { return _removedItems; } }
 
 		//public IEnumerable<AccessControlEntryBase> GetByUIElement(UIElement uie)
 		//{
@@ -582,18 +618,28 @@ namespace Suplex.Forms.ObjectModel.Api
 				this.Items[i].IsDirty = false;
 			}
 		}
+
+		protected override void RemoveItem(int index)
+		{
+			_removedItems.Add( this[index] );
+			base.RemoveItem( index );
+		}
 	}
 
 	[XmlInclude( typeof( UIAuditAce ) ), XmlInclude( typeof( RecordAuditAce ) ), XmlInclude( typeof( FileSystemAuditAce ) ), XmlInclude( typeof( SynchronizationAuditAce ) )]
 	[CollectionDataContract()]
 	public class AuditAceCollection : ObservableObjectModelCollection<AccessControlEntryAuditBase>, ISuplexObjectList
 	{
+		List<AccessControlEntryBase> _removedItems = new List<AccessControlEntryBase>();
+
 		public AuditAceCollection() : base() { }
 		public AuditAceCollection(IObjectModel owner)
 			: base( owner )
 		{ }
 
 		internal SuplexStore OwnerStore { get; set; }
+
+		public List<AccessControlEntryBase> RemovedItems { get { return _removedItems; } }
 
 		//public IEnumerable<AccessControlEntryAuditBase> GetByUIElement(UIElement uie)
 		//{
@@ -641,6 +687,12 @@ namespace Suplex.Forms.ObjectModel.Api
 				this.Items[i].Resolve( ownerStore );
 				this.Items[i].IsDirty = false;
 			}
+		}
+
+		protected override void RemoveItem(int index)
+		{
+			_removedItems.Add( this[index] );
+			base.RemoveItem( index );
 		}
 	}
 

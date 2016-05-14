@@ -287,6 +287,35 @@ namespace Suplex.Forms.ObjectModel.Api
 			this.DeleteSaclIds = sourceObject.DeleteSaclIds;
 			this.DeleteRightRoleIds = sourceObject.DeleteRightRoleIds;
 			this.DeleteRightRoleRuleIds = sourceObject.DeleteRightRoleRuleIds;
+
+			if( this.DeleteDaclIds == null)
+			{
+				this.DeleteDaclIds = new List<long>();
+			}
+			if( this.DeleteSaclIds == null )
+			{
+				this.DeleteSaclIds = new List<long>();
+			}
+			if( this.DeleteRightRoleIds == null )
+			{
+				this.DeleteRightRoleIds = new List<long>();
+			}
+			if( this.DeleteRightRoleRuleIds == null )
+			{
+				this.DeleteRightRoleRuleIds = new List<Guid>();
+			}
+
+			foreach(AccessControlEntryBase ace in this.Dacl.RemovedItems)
+			{
+				this.DeleteDaclIds.Add( ace.Id );
+			}
+			sourceObject.Dacl.RemovedItems.Clear();
+
+			foreach( AccessControlEntryBase ace in this.Sacl.RemovedItems )
+			{
+				this.DeleteSaclIds.Add( ace.Id );
+			}
+			sourceObject.Sacl.RemovedItems.Clear();
 		}
 
 		internal bool HaveDeleteIds
@@ -352,7 +381,7 @@ namespace Suplex.Forms.ObjectModel.Api
 						{
 							if( found.AceType == ace.AceType )
 							{
-								if( ace.IsDirty )
+								if( ace.IsDirty || found.WantsSynchronize( ace ) )
 								{
 									found.Synchronize( ace );
 								}
@@ -396,7 +425,7 @@ namespace Suplex.Forms.ObjectModel.Api
 						{
 							if( found.AceType == ace.AceType )
 							{
-								if( ace.IsDirty )
+								if( ace.IsDirty || found.WantsSynchronize( ace ) )
 								{
 									found.Synchronize( ace );
 								}
