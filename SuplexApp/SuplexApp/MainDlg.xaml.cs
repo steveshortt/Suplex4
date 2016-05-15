@@ -43,6 +43,9 @@ namespace SuplexApp
 
 			this.FileNew();
 
+			//note: when compiling SuplexAdmin as a dll, comment the below lines and remove App.xaml/App.xaml.cs from project
+			//best to backup/restore SuplexApp.csproj before/after compiling as dll, VisualStudio can sometimes fruit with project file in wierd ways
+			//comment from here:
 			if( App.StartUpDocumentIsValid )
 			{
 				this.OpenFile( App.StartUpDocument );
@@ -62,6 +65,7 @@ namespace SuplexApp
 					}
 				}
 			}
+			//:to here
 		}
 
 		#region MainDlg handlers, Startup/Shutdown
