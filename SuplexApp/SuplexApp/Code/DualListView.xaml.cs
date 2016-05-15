@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Data;
 
 namespace SuplexApp.Controls
 {
@@ -50,6 +51,7 @@ namespace SuplexApp.Controls
 		public static readonly DependencyProperty RightListDataContextProperty = DependencyProperty.Register( "RightListDataContext", typeof( object ), typeof( DualListView ) );
 		public static readonly DependencyProperty AutoMoveItemsProperty = DependencyProperty.Register( "AutoMoveItems", typeof( bool? ), typeof( DualListView ) );
 		public static readonly DependencyProperty TrackAutoMovedItemsProperty = DependencyProperty.Register( "TrackAutoMovedItems", typeof( bool? ), typeof( DualListView ) );
+		public static readonly DependencyProperty IsDirtyProperty = DependencyProperty.Register( "IsDirty", typeof( bool? ), typeof( DualListView ) );
 
 		public object LeftHeader
 		{
@@ -73,6 +75,24 @@ namespace SuplexApp.Controls
 		{
 			get { return GetValue( LeftListDataContextProperty ) as object; }
 			set { SetValue( LeftListDataContextProperty, value ); }
+		}
+		private IList leftListDataContext
+		{
+			get
+			{
+				if( lstLeft.DataContext is IList )
+				{
+					return (IList)lstLeft.DataContext;
+				}
+				else if( lstLeft.DataContext is CollectionViewSource )
+				{
+					return (IList)((CollectionViewSource)lstLeft.DataContext).Source;
+				}
+				else
+				{
+					throw new NotSupportedException( "DataContext type not IList or CollectionViewSource" );
+				}
+			}
 		}
 
 		public object RightHeader
@@ -98,6 +118,24 @@ namespace SuplexApp.Controls
 			get { return GetValue( RightListDataContextProperty ) as object; }
 			set { SetValue( RightListDataContextProperty, value ); }
 		}
+		private IList rightListDataContext
+		{
+			get
+			{
+				if( lstRight.DataContext is IList )
+				{
+					return (IList)lstRight.DataContext;
+				}
+				else if( lstRight.DataContext is CollectionViewSource )
+				{
+					return (IList)((CollectionViewSource)lstRight.DataContext).Source;
+				}
+				else
+				{
+					throw new NotSupportedException( "DataContext type not IList or CollectionViewSource" );
+				}
+			}
+		}
 
 		public bool? AutoMoveItems
 		{
@@ -109,6 +147,12 @@ namespace SuplexApp.Controls
 		{
 			get { return GetValue( TrackAutoMovedItemsProperty ) as bool?; }
 			set { SetValue( TrackAutoMovedItemsProperty, value ); }
+		}
+
+		public bool? IsDirty
+		{
+			get { return GetValue( IsDirtyProperty ) as bool?; }
+			set { SetValue( IsDirtyProperty, value ); }
 		}
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
@@ -167,8 +211,10 @@ namespace SuplexApp.Controls
 				_itemsMovedRight.Remove( item );
 			}
 
-			((IList)lstLeft.DataContext).Add( item );
-			((IList)lstRight.DataContext).Remove( item );
+			leftListDataContext.Add( item );
+			rightListDataContext.Remove( item );
+
+			this.IsDirty = true;
 		}
 		public void MoveItemRight(object item, bool trackMovedItem)
 		{
@@ -178,8 +224,10 @@ namespace SuplexApp.Controls
 				_itemsMovedLeft.Remove( item );
 			}
 
-			((IList)lstRight.DataContext).Add( item );
-			((IList)lstLeft.DataContext).Remove( item );
+			rightListDataContext.Add( item );
+			leftListDataContext.Remove( item );
+
+			this.IsDirty = true;
 		}
 		#endregion
 
@@ -188,6 +236,8 @@ namespace SuplexApp.Controls
 		{
 			if( this.AutoMoveItems == true )
 			{
+				bool movingSomething = lstRight.SelectedItems.Count > 0;
+
 				object item = null;
 				for( int i = lstRight.SelectedItems.Count - 1; i >= 0; i-- )
 				{
@@ -199,8 +249,13 @@ namespace SuplexApp.Controls
 						_itemsMovedRight.Remove( item );
 					}
 
-					((IList)lstLeft.DataContext).Add( item );
-					((IList)lstRight.DataContext).Remove( item );
+					leftListDataContext.Add( item );
+					rightListDataContext.Remove( item );
+				}
+
+				if( movingSomething )
+				{
+					this.IsDirty = true;
 				}
 			}
 
@@ -216,6 +271,8 @@ namespace SuplexApp.Controls
 		{
 			if( this.AutoMoveItems == true )
 			{
+				bool movingSomething = lstRight.SelectedItems.Count > 0;
+
 				object item = null;
 				for( int i = lstLeft.SelectedItems.Count - 1; i >= 0; i-- )
 				{
@@ -227,8 +284,13 @@ namespace SuplexApp.Controls
 						_itemsMovedLeft.Remove( item );
 					}
 
-					((IList)lstRight.DataContext).Add( item );
-					((IList)lstLeft.DataContext).Remove( item );
+					rightListDataContext.Add( item );
+					leftListDataContext.Remove( item );
+				}
+
+				if( movingSomething )
+				{
+					this.IsDirty = true;
 				}
 			}
 

@@ -43,13 +43,6 @@ namespace SuplexApp
 		}
 		public api.SuplexApiClient ApiClient { get; set; }
 
-		private void Refresh_Click(object sender, RoutedEventArgs e)
-		{
-			txtFilter.Text = string.Empty;
-			_securityPrincipalsCvs.View.Refresh();
-			txtFilter.Focus();
-		}
-
 		private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if( _securityPrincipalsCvs.View.Filter == null )
@@ -57,7 +50,7 @@ namespace SuplexApp
 				_securityPrincipalsCvs.View.Filter = this.NameFilter;
 			}
 
-			_filterString = txtFilter.Text;
+			_filterString = ((TextBox)sender).Text;
 			_securityPrincipalsCvs.View.Refresh();
 		}
 

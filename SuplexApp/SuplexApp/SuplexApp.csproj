@@ -107,6 +107,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Code\FilterTextBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Dlgs\AceRightsCtrl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -224,6 +228,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Code\Converters.cs" />
+    <Compile Include="Code\FilterTextBox.xaml.cs">
+      <DependentUpon>FilterTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Code\UIElementCtrlViewModel.cs" />
     <Compile Include="Dlgs\PreviewDlg.xaml.cs">
       <DependentUpon>PreviewDlg.xaml</DependentUpon>
@@ -493,6 +500,9 @@
   <ItemGroup>
     <Resource Include="Resources\UIElement\file_dragdrop_16.png" />
     <Resource Include="Resources\UIElement\file_dragdrop_disabled_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close_grey.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
