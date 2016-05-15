@@ -110,7 +110,7 @@
                                      MoveLeftClick="Membership_Changed_Left" MoveRightClick="Membership_Changed_Right">
                         <cc:DualListView.LeftHeader>
                             <StackPanel>
-                                <Label Content="Member Of" />
+                                <TextBlock Text="Member Of" />
                                 <cc:FilterTextBox TextChanged="dlvMemberOfLeftFilter_TextChanged" />
                             </StackPanel>
                         </cc:DualListView.LeftHeader>
@@ -122,7 +122,7 @@
                         </cc:DualListView.LeftListView>
                         <cc:DualListView.RightHeader>
                             <StackPanel>
-                                <Label Content="Not Member Of" />
+                                <TextBlock Text="Not Member Of" />
                                 <cc:FilterTextBox TextChanged="dlvMemberOfRightFilter_TextChanged" />
                             </StackPanel>
                         </cc:DualListView.RightHeader>
@@ -151,7 +151,7 @@
                                      MoveLeftClick="Members_Changed_Left" MoveRightClick="Members_Changed_Right">
                                 <cc:DualListView.LeftHeader>
                                     <StackPanel>
-                                        <Label Content="Members" />
+                                        <TextBlock Text="Members" />
                                         <cc:FilterTextBox TextChanged="dlvMembersLeftFilter_TextChanged" />
                                     </StackPanel>
                                 </cc:DualListView.LeftHeader>
@@ -163,7 +163,7 @@
                                 </cc:DualListView.LeftListView>
                                 <cc:DualListView.RightHeader>
                                     <StackPanel>
-                                        <Label Content="Non Members" />
+                                        <TextBlock Text="Non Members" />
                                         <cc:FilterTextBox TextChanged="dlvMembersRightFilter_TextChanged" />
                                     </StackPanel>
                                 </cc:DualListView.RightHeader>
