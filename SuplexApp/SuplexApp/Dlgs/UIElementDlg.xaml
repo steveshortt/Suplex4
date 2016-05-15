@@ -194,6 +194,14 @@
                         <TextBlock Text="Collapse All" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                <ToggleButton Name="cmdAllowDragDrop" IsChecked="False"
+                              Style="{DynamicResource ToolBar.ButtonStyleKey}" Margin="5,0,0,0"
+                              IsEnabled="{Binding EditIsEnabled}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{local:FormattedBinding EditIsEnabled, ValueIfTrue='/SuplexAdmin;component/Resources/UIElement/file_dragdrop_16.png', ValueIfFalse='/SuplexAdmin;component/Resources/UIElement/file_dragdrop_disabled_16.png'}" Height="16" Width="16"/>
+                        <TextBlock Text="Allow Drag/Drop" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ToggleButton>
             </ToolBar>
         </ToolBarTray>
 
