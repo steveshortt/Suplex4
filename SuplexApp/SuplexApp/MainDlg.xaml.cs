@@ -43,25 +43,25 @@ namespace SuplexApp
 
 			this.FileNew();
 
-			//if( App.StartUpDocumentIsValid )
-			//{
-			//	this.OpenFile( App.StartUpDocument );
-			//}
-			//else if( App.CommandLineArgs.Count > 0 )
-			//{
-			//	if( App.CommandLineArgs.Keys.Contains( "/config" ) )
-			//	{
-			//		//placeholder
-			//		//this.OpenConfig( App.CommandLineArgs["/config"] );
-			//	}
-			//	else if( App.CommandLineArgs.Keys.Contains( "/dbserver" ) && App.CommandLineArgs.Keys.Contains( "/dbname" ) )
-			//	{
-			//		if( App.CommandLineArgs.Keys.Contains( "/dbuser" ) && App.CommandLineArgs.Keys.Contains( "/dbpswd" ) )
-			//		{
-			//			//placeholder
-			//		}
-			//	}
-			//}
+			if( App.StartUpDocumentIsValid )
+			{
+				this.OpenFile( App.StartUpDocument );
+			}
+			else if( App.CommandLineArgs.Count > 0 )
+			{
+				if( App.CommandLineArgs.Keys.Contains( "/config" ) )
+				{
+					//placeholder
+					//this.OpenConfig( App.CommandLineArgs["/config"] );
+				}
+				else if( App.CommandLineArgs.Keys.Contains( "/dbserver" ) && App.CommandLineArgs.Keys.Contains( "/dbname" ) )
+				{
+					if( App.CommandLineArgs.Keys.Contains( "/dbuser" ) && App.CommandLineArgs.Keys.Contains( "/dbpswd" ) )
+					{
+						//placeholder
+					}
+				}
+			}
 		}
 
 		#region MainDlg handlers, Startup/Shutdown
