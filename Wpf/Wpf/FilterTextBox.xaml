@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Suplex.Wpf.FilterTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="White">
+        <TextBlock Name="lblFilter" Text="Filter"
+                   FontStyle="Italic" Foreground="Gray"
+                   VerticalAlignment="Center" Margin="3,0,0,0" />
+        <TextBox Name="txtFilter" Background="Transparent"
+                 KeyDown="txtFilter_KeyDown"
+                 TextChanged="txtFilter_TextChanged" />
+        <Image Name="cmdClear" Source="/Suplex.Wpf;component/Resources/close_grey.png"
+               Cursor="Hand"
+               HorizontalAlignment="Right" Margin="0,0,3,0" Width="14" Height="14"
+               MouseLeftButtonDown="cmdClear_MouseLeftButtonDown"/>
+    </Grid>
+</UserControl>

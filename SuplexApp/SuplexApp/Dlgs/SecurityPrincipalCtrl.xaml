@@ -1,13 +1,14 @@
 ﻿<splx:SplxUserControl x:Class="SuplexApp.SecurityPrincipalCtrl"
-                   Name="securityPrincipalEditor"
-                   KeyDown="spEditor_KeyDown"
-                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                   xmlns:local="clr-namespace:SuplexApp"
-                   xmlns:cc="clr-namespace:SuplexApp.Controls"
-                   xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
-                   xmlns:splx="clr-namespace:Suplex.Wpf;assembly=Suplex.Wpf"
-                   >
+                      Name="securityPrincipalEditor"
+                      KeyDown="spEditor_KeyDown"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+                      xmlns:local="clr-namespace:SuplexApp"
+                      xmlns:cc="clr-namespace:SuplexApp.Controls"
+                      xmlns:splxApi="clr-namespace:Suplex.Forms.ObjectModel.Api;assembly=Suplex.Core"
+                      xmlns:splx="clr-namespace:Suplex.Wpf;assembly=Suplex.Wpf"
+                      >
     
     <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
@@ -106,19 +107,30 @@
                           Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Visible, ValueIfFalse=Collapsed}">
                     <cc:DualListView x:Name="dlvMemberOf" MinHeight="200" Margin="5"
                                      AutoMoveItems="True" TrackAutoMovedItems="true"
-                                     LeftHeader="Member Of" RightHeader="Not Member Of"
                                      MoveLeftClick="Membership_Changed_Left" MoveRightClick="Membership_Changed_Right">
+                        <cc:DualListView.LeftHeader>
+                            <StackPanel>
+                                <Label Content="Member Of" />
+                                <cc:FilterTextBox TextChanged="dlvMemberOfLeftFilter_TextChanged" />
+                            </StackPanel>
+                        </cc:DualListView.LeftHeader>
                         <cc:DualListView.LeftListView>
                             <GridView AllowsColumnReorder="true">
                                 <GridViewColumn Header="Name" Width="Auto" CellTemplate="{DynamicResource securityPrincipalNameIconTemplate}" />
-                                <GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>
+                                <!--<GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>-->
                             </GridView>
                         </cc:DualListView.LeftListView>
+                        <cc:DualListView.RightHeader>
+                            <StackPanel>
+                                <Label Content="Not Member Of" />
+                                <cc:FilterTextBox TextChanged="dlvMemberOfRightFilter_TextChanged" />
+                            </StackPanel>
+                        </cc:DualListView.RightHeader>
                         <cc:DualListView.RightListView>
                             <GridView AllowsColumnReorder="true">
                                 <GridViewColumn Header="Name" Width="Auto" CellTemplate="{DynamicResource securityPrincipalNameIconTemplate}" />
                                 <!--<GridViewColumn DisplayMemberBinding="{Binding Path=Description}" Header="Description" Width="Auto"/>-->
-                                <GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>
+                                <!--<GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>-->
                             </GridView>
                         </cc:DualListView.RightListView>
                     </cc:DualListView>
@@ -136,18 +148,29 @@
                                   Visibility="{local:FormattedBinding Path=IsLocal, ValueIfTrue=Visible, ValueIfFalse=Collapsed, UpdateSourceTrigger=PropertyChanged}">
                             <cc:DualListView x:Name="dlvMembers" MinHeight="200" MaxHeight="400" Margin="5"
                                      AutoMoveItems="True" TrackAutoMovedItems="true"
-                                     LeftHeader="Members" RightHeader="Non Members"
                                      MoveLeftClick="Members_Changed_Left" MoveRightClick="Members_Changed_Right">
+                                <cc:DualListView.LeftHeader>
+                                    <StackPanel>
+                                        <Label Content="Members" />
+                                        <cc:FilterTextBox TextChanged="dlvMembersLeftFilter_TextChanged" />
+                                    </StackPanel>
+                                </cc:DualListView.LeftHeader>
                                 <cc:DualListView.LeftListView>
                                     <GridView AllowsColumnReorder="true">
                                         <GridViewColumn Header="Name" Width="Auto" CellTemplate="{DynamicResource securityPrincipalNameIconTemplate}" />
-                                        <GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>
+                                        <!--<GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>-->
                                     </GridView>
                                 </cc:DualListView.LeftListView>
+                                <cc:DualListView.RightHeader>
+                                    <StackPanel>
+                                        <Label Content="Non Members" />
+                                        <cc:FilterTextBox TextChanged="dlvMembersRightFilter_TextChanged" />
+                                    </StackPanel>
+                                </cc:DualListView.RightHeader>
                                 <cc:DualListView.RightListView>
                                     <GridView AllowsColumnReorder="true">
                                         <GridViewColumn Header="Name" Width="Auto" CellTemplate="{DynamicResource securityPrincipalNameIconTemplate}" />
-                                        <GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>
+                                        <!--<GridViewColumn Header="Description" Width="Auto" CellTemplate="{DynamicResource securityPrincipalDescriptionTemplate}"/>-->
                                     </GridView>
                                 </cc:DualListView.RightListView>
                             </cc:DualListView>

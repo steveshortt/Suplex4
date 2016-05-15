@@ -48,16 +48,7 @@
 
         <ToolBarTray>
             <ToolBar>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Filter: " VerticalAlignment="Center"/>
-                    <TextBox Width="150" Name="txtFilter" TextChanged="txtFilter_TextChanged" />
-                </StackPanel>
-                <Button Style="{DynamicResource ToolBar.ButtonStyleKey}"
-                    Click="Refresh_Click" ToolTip="Clear Filter">
-                    <Image Source="/SuplexAdmin;component/Resources/Security/refresh_16.png" Height="16" Width="22"/>
-                </Button>
-            <ToolBar>
-            </ToolBar>
+                <cc:FilterTextBox Width="250" Margin="0,0,3,0" TextChanged="txtFilter_TextChanged" />
                 <Button Style="{DynamicResource ToolBar.ButtonStyleKey}"
                     Click="AddNewUser_Click" ToolTip="Create New User">
                     <StackPanel Orientation="Horizontal">

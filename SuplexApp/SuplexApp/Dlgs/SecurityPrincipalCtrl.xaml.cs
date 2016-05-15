@@ -1,16 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
-
 using Suplex.Security;
+using Suplex.Wpf;
 using api = Suplex.Forms.ObjectModel.Api;
 using sf = Suplex.Forms;
-using Suplex.Wpf;
 
 namespace SuplexApp
 {
@@ -80,8 +78,13 @@ namespace SuplexApp
 				{
 					_membership = this.SplxStore.GroupMembership.GetMemberOf( securityPrincipal );
 				}
-				dlvMemberOf.LeftListDataContext = _membership.MemberList;
-				dlvMemberOf.RightListDataContext = _membership.NonMemberList;
+
+				//dlvMemberOf.LeftListDataContext = _membership.MemberList;
+				dlvMemberOf.LeftListDataContext = _membership.MemberList.CollectionViewSource;
+				_membership.MemberList.CollectionViewSource.View.Filter = this.LeftFilter;
+
+				dlvMemberOf.RightListDataContext = _membership.NonMemberList.CollectionViewSource;
+				_membership.NonMemberList.CollectionViewSource.View.Filter = this.RightFilter;
 			}
 			else
 			{
@@ -92,8 +95,14 @@ namespace SuplexApp
 				if( this.ApiClient.IsConnected )
 				{
 					_members = this.ApiClient.GetGroupMembers( ((api.Group)securityPrincipal).Id );
-					dlvMembers.LeftListDataContext = _members.MemberList;
-					dlvMembers.RightListDataContext = _members.NonMemberList;
+					//dlvMembers.LeftListDataContext = _members.MemberList;
+					dlvMembers.LeftListDataContext = _members.MemberList.CollectionViewSource;
+					_members.MemberList.CollectionViewSource.View.Filter = this.LeftFilter;
+
+					//dlvMembers.RightListDataContext = _members.NonMemberList;
+					dlvMembers.RightListDataContext = _members.NonMemberList.CollectionViewSource;
+					_members.NonMemberList.CollectionViewSource.View.Filter = this.RightFilter;
+
 
 					List<api.Group> hier = this.ApiClient.GetGroupHierarchy( ((api.Group)securityPrincipal).Id );
 					tvwGroupHier.DataContext = hier;
@@ -117,8 +126,13 @@ namespace SuplexApp
 				else
 				{
 					_members = this.SplxStore.GroupMembership.GetGroupMembers( (api.Group)securityPrincipal );
-					dlvMembers.LeftListDataContext = _members.MemberList;
-					dlvMembers.RightListDataContext = _members.NonMemberList;
+					//dlvMembers.LeftListDataContext = _members.MemberList;
+					dlvMembers.LeftListDataContext = _members.MemberList.CollectionViewSource;
+					_members.MemberList.CollectionViewSource.View.Filter = this.LeftFilter;
+
+					//dlvMembers.RightListDataContext = _members.NonMemberList;
+					dlvMembers.RightListDataContext = _members.NonMemberList.CollectionViewSource;
+					_members.NonMemberList.CollectionViewSource.View.Filter = this.RightFilter;
 
 					List<api.Group> hier =
 						this.SplxStore.GroupMembership.GetGroupHierarchy( (api.Group)securityPrincipal );
@@ -175,8 +189,10 @@ namespace SuplexApp
 				api.SecurityPrincipalBase sp = (api.SecurityPrincipalBase)this.SourceObject;
 				if( !sp.IsUserObject && !sp.IsLocal )
 				{
+					//api.ObservableObjectModelCollection<api.SecurityPrincipalBase> membs =
+					//	(api.ObservableObjectModelCollection<api.SecurityPrincipalBase>)dlvMembers.LeftListDataContext;
 					api.ObservableObjectModelCollection<api.SecurityPrincipalBase> membs =
-						(api.ObservableObjectModelCollection<api.SecurityPrincipalBase>)dlvMembers.LeftListDataContext;
+						(api.ObservableObjectModelCollection<api.SecurityPrincipalBase>)((CollectionViewSource)dlvMembers.LeftListDataContext).Source;
 					for( int i = membs.Count - 1; i > -1; i-- )
 					{
 						dlvMembers.MoveItemRight( membs[i], true );
@@ -285,5 +301,46 @@ namespace SuplexApp
 			//    }
 			//}
 		}
+
+		#region filtering
+		string _leftFilterText = string.Empty;
+		string _rightFilterText = string.Empty;
+
+		private void dlvMemberOfLeftFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_leftFilterText = ((TextBox)sender).Text;
+			_membership.MemberList.CollectionViewSource.View.Refresh();
+		}
+
+		private void dlvMemberOfRightFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_rightFilterText = ((TextBox)sender).Text;
+			_membership.NonMemberList.CollectionViewSource.View.Refresh();
+		}
+
+		private void dlvMembersLeftFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_leftFilterText = ((TextBox)sender).Text;
+			_members.MemberList.CollectionViewSource.View.Refresh();
+		}
+
+		private void dlvMembersRightFilter_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			_rightFilterText = ((TextBox)sender).Text;
+			_members.NonMemberList.CollectionViewSource.View.Refresh();
+		}
+
+		bool LeftFilter(object item)
+		{
+			api.SecurityPrincipalBase sp = item as api.SecurityPrincipalBase;
+			return sp.Name.IndexOf( _leftFilterText, StringComparison.OrdinalIgnoreCase ) >= 0;
+		}
+
+		bool RightFilter(object item)
+		{
+			api.SecurityPrincipalBase sp = item as api.SecurityPrincipalBase;
+			return sp.Name.IndexOf( _rightFilterText, StringComparison.OrdinalIgnoreCase ) >= 0;
+		}
+		#endregion
 	}
 }

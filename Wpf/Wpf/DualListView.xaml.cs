@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Collections;
 using System.Collections.Generic;
+using System.Windows.Data;
 
 namespace Suplex.Wpf
 {
@@ -75,6 +76,24 @@ namespace Suplex.Wpf
 			get { return GetValue( LeftListDataContextProperty ) as object; }
 			set { SetValue( LeftListDataContextProperty, value ); }
 		}
+		private IList leftListDataContext
+		{
+			get
+			{
+				if( lstLeft.DataContext is IList )
+				{
+					return (IList)lstLeft.DataContext;
+				}
+				else if( lstLeft.DataContext is CollectionViewSource )
+				{
+					return (IList)((CollectionViewSource)lstLeft.DataContext).Source;
+				}
+				else
+				{
+					throw new NotSupportedException( "DataContext type not IList or CollectionViewSource" );
+				}
+			}
+		}
 
 		public object RightHeader
 		{
@@ -98,6 +117,24 @@ namespace Suplex.Wpf
 		{
 			get { return GetValue( RightListDataContextProperty ) as object; }
 			set { SetValue( RightListDataContextProperty, value ); }
+		}
+		private IList rightListDataContext
+		{
+			get
+			{
+				if( lstRight.DataContext is IList )
+				{
+					return (IList)lstRight.DataContext;
+				}
+				else if( lstRight.DataContext is CollectionViewSource )
+				{
+					return (IList)((CollectionViewSource)lstRight.DataContext).Source;
+				}
+				else
+				{
+					throw new NotSupportedException( "DataContext type not IList or CollectionViewSource" );
+				}
+			}
 		}
 
 		public bool? AutoMoveItems
@@ -174,8 +211,8 @@ namespace Suplex.Wpf
 				_itemsMovedRight.Remove( item );
 			}
 
-			((IList)lstLeft.DataContext).Add( item );
-			((IList)lstRight.DataContext).Remove( item );
+			leftListDataContext.Add( item );
+			rightListDataContext.Remove( item );
 
 			this.IsDirty = true;
 		}
@@ -187,8 +224,8 @@ namespace Suplex.Wpf
 				_itemsMovedLeft.Remove( item );
 			}
 
-			((IList)lstRight.DataContext).Add( item );
-			((IList)lstLeft.DataContext).Remove( item );
+			rightListDataContext.Add( item );
+			leftListDataContext.Remove( item );
 
 			this.IsDirty = true;
 		}
@@ -212,8 +249,8 @@ namespace Suplex.Wpf
 						_itemsMovedRight.Remove( item );
 					}
 
-					((IList)lstLeft.DataContext).Add( item );
-					((IList)lstRight.DataContext).Remove( item );
+					leftListDataContext.Add( item );
+					rightListDataContext.Remove( item );
 				}
 
 				if( movingSomething )
@@ -247,8 +284,8 @@ namespace Suplex.Wpf
 						_itemsMovedLeft.Remove( item );
 					}
 
-					((IList)lstRight.DataContext).Add( item );
-					((IList)lstLeft.DataContext).Remove( item );
+					rightListDataContext.Add( item );
+					leftListDataContext.Remove( item );
 				}
 
 				if( movingSomething )
