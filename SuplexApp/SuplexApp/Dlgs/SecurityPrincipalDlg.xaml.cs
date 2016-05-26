@@ -32,6 +32,23 @@ namespace SuplexApp
 			_securityPrincipalsCvs.View.Filter = this.NameFilter;
 		}
 
+		public static readonly DependencyProperty AllowUserDeleteProperty =
+			DependencyProperty.Register( "AllowUserDelete", typeof( bool ), typeof( SecurityPrincipalDlg ), new PropertyMetadata( true ) );
+		public bool AllowUserDelete
+		{
+			get { return (bool)GetValue( AllowUserDeleteProperty ); }
+			set { SetValue( AllowUserDeleteProperty, value ); }
+		}
+
+		public static readonly DependencyProperty AllowGroupDeleteProperty =
+			DependencyProperty.Register( "AllowGroupDelete", typeof( bool ), typeof( SecurityPrincipalDlg ), new PropertyMetadata( true ) );
+		public bool AllowGroupDelete
+		{
+			get { return (bool)GetValue( AllowGroupDeleteProperty ); }
+			set { SetValue( AllowGroupDeleteProperty, value ); }
+		}
+
+
 		public api.SuplexStore SplxStore
 		{
 			get { return _splxStore; }
@@ -298,10 +315,19 @@ namespace SuplexApp
 			}
 		}
 
-		//TODO: must also cleanup GroupMemebership
+		//todo: must also cleanup GroupMemebership
 		private void DeleteSecurityPrincipal_Click(object sender, RoutedEventArgs e)
 		{
 			api.SecurityPrincipalBase sp = (api.SecurityPrincipalBase)lvSecurity.SelectedItem;
+
+			bool ok = sp.IsUserObject ? AllowUserDelete : AllowGroupDelete;
+			if( !ok )
+			{
+				MessageBox.Show(
+					string.Format( "Deleting {0}s from this dialog is not supported.", sp.IsUserObject ? "user" : "group" ),
+					"Not Supported", MessageBoxButton.OK, MessageBoxImage.Asterisk );
+				return;
+			}
 
 			MessageBoxResult result = MessageBox.Show( 
 				string.Format( "Are you sure you want to delete {0} ({1})?", sp.Name, sp.IsUserObject ? "user" : "group" ),

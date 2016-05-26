@@ -76,7 +76,7 @@
                         <Label Content="Mask:" Grid.Row="2" Style="{DynamicResource DialogLabel}"
                                Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
                         <splx:SplxTextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource DialogControl}"
-                                       Text="{Binding Path=MaskValue, UpdateSourceTrigger=PropertyChanged}"
+                                       Text="{Binding Path=MaskValue, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
                                        Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
 
                         <Label Content="Status:" Grid.Row="3" Style="{DynamicResource DialogLabel}"/>
