@@ -84,6 +84,13 @@
         <Setter Property="Margin" Value="10,0,5,5"/>
     </Style>
 
+    <Style x:Key="DialogLabelLeft" TargetType="{x:Type Label}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Margin" Value="0,0,5,5"/>
+    </Style>
+
     <Style x:Key="DialogTextBox" TargetType="{x:Type TextBox}">
         <Setter Property="Margin" Value="0,0,0,5"/>
     </Style>

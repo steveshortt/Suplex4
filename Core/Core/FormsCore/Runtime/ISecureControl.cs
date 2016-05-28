@@ -540,6 +540,7 @@ namespace Suplex.Forms
 		public Guid SecurityPrincipalId { get; set; }
 		public byte[] RowRlsMask { get; set; }
 		public byte[] SecurityPrincipalRlsMask { get; set; }
+		public bool ErrorOnUnmatchedMaskLengths { get; set; }
 		public EvalOption Option { get; set; }
 
 		public bool IsRowOwner { get; internal set; }
@@ -560,6 +561,22 @@ namespace Suplex.Forms
 				{
 					InternalBitArray rowRlsMask = new InternalBitArray( this.RowRlsMask );
 					InternalBitArray securityPrincipalRlsMask = new InternalBitArray( this.SecurityPrincipalRlsMask );
+
+					if( !ErrorOnUnmatchedMaskLengths )
+					{
+						if( this.RowRlsMask.Length < this.SecurityPrincipalRlsMask.Length )
+						{
+							byte[] mask = new byte[this.SecurityPrincipalRlsMask.Length];
+							this.RowRlsMask.CopyTo( mask, 0 );
+							rowRlsMask = new InternalBitArray( mask );
+						}
+						else if( this.SecurityPrincipalRlsMask.Length < this.RowRlsMask.Length )
+						{
+							byte[] mask = new byte[this.RowRlsMask.Length];
+							this.SecurityPrincipalRlsMask.CopyTo( mask, 0 );
+							securityPrincipalRlsMask = new InternalBitArray( mask );
+						}
+					}
 
 					if( rowRlsMask.HasValue )
 					{
@@ -633,8 +650,9 @@ namespace Suplex.Forms
 			int num = (this.m_length + 0x1f) / 0x20;
 			for( int i = 0; i < num; i++ )
 			{
-				this.m_array[i] &= value.m_array[i];
-				if( this.m_array[i] > 0 )
+				//if the 32nd bit of the array is set to 1, test for int.MinValue
+				int v = this.m_array[i] & value.m_array[i];
+				if( v > 0 || (v & int.MinValue) == int.MinValue )
 				{
 					haveMatch = true;
 					break;

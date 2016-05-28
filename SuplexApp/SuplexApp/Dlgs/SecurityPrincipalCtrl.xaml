@@ -63,7 +63,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Label Content="Name:" Style="{DynamicResource DialogLabel}"/>
                         <splx:SplxTextBox Grid.Column="1" Style="{DynamicResource DialogControl}" Name="txtName"
                                        Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
@@ -75,9 +75,9 @@
 
                         <Label Content="Mask:" Grid.Row="2" Style="{DynamicResource DialogLabel}"
                                Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
-                        <splx:SplxTextBox Grid.Column="1" Grid.Row="2" Style="{DynamicResource DialogControl}"
-                                       Text="{Binding Path=MaskValue, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"
-                                       Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
+                        <Label Grid.Column="1" Grid.Row="2" Style="{DynamicResource DialogLabelLeft}"
+                                   Content="{Binding Path=MaskValue, UpdateSourceTrigger=PropertyChanged}"
+                                   Visibility="{local:FormattedBinding Path=IsUserObject, ValueIfTrue=Collapsed, ValueIfFalse=Visible}"/>
 
                         <Label Content="Status:" Grid.Row="3" Style="{DynamicResource DialogLabel}"/>
                         <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" Margin="0,0,5,5">
