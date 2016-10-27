@@ -34,18 +34,11 @@ namespace BitLib.Tests
             for( int i = 0; i < 1000000; i++ )
                 foo |= row.ContainsOne( grp );
 
-            //for( int i = 0; i < 1000000; i++ )
-            //    row.ContainsOneEx( grp );
-
             foo = false;
 
             int[] index = grp.GetValueIndexes();
             for( int i = 0; i < 1000000; i++ )
-                foo |= row.MatchedAt( grp, index );
-
-            //int index = grp.GetFirstValueIndex();
-            //for( int i = 0; i < 1000000; i++ )
-            //    foo = row.MatchedAt( grp, index );
+                foo |= row.MatchesAtValueIndexes( grp, index );
 
             foo = false;
         }
