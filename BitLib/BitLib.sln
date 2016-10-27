@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitLib", "BitLib.csproj", "{FBF3ED3A-625C-4670-8D34-F1E547F305AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitLib.Tests", "..\BitLib.Tests\BitLib.Tests.csproj", "{2D82471E-B398-4629-B24A-73D46BF3CD14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{FBF3ED3A-625C-4670-8D34-F1E547F305AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBF3ED3A-625C-4670-8D34-F1E547F305AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBF3ED3A-625C-4670-8D34-F1E547F305AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D82471E-B398-4629-B24A-73D46BF3CD14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D82471E-B398-4629-B24A-73D46BF3CD14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D82471E-B398-4629-B24A-73D46BF3CD14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D82471E-B398-4629-B24A-73D46BF3CD14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

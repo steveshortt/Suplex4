@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
@@ -169,7 +170,7 @@ namespace Suplex.BitLib
 		[NonSerialized]
 		private object _syncRoot;
 		private int _version;
-		private int[] m_array;
+		internal int[] m_array;
 		private int m_length;
 
 		// Methods
@@ -326,7 +327,108 @@ namespace Suplex.BitLib
 			return haveMatch;
 		}
 
-		public object Clone()
+        public bool ContainsOneEx(BitArray value)
+        {
+            if( value == null )
+                throw new ArgumentNullException( "value" );
+            if( this.m_length != value.m_length )
+                throw new ArgumentException( "Arg_ArrayLengthsDiffer" );
+
+            int max = (this.m_length + 0x1f) / 0x20;
+            int i = 0;
+            while( i < max && value.m_array[i] == 0 )
+                i++;
+
+            int v = this.m_array[i] & value.m_array[i];
+            bool haveMatch = (v > 0 || (v & int.MinValue) == int.MinValue);
+
+            return haveMatch;
+        }
+
+        public int GetFirstValueIndex()
+        {
+            int max = (this.m_length + 0x1f) / 0x20;
+            int i = 0;
+            while( i < max && this.m_array[i] == 0 )
+                i++;
+            return i;
+        }
+        public bool MatchedAt(BitArray value, int i)
+        {
+            if( value == null )
+                throw new ArgumentNullException( "value" );
+            if( this.m_length != value.m_length )
+                throw new ArgumentException( "Arg_ArrayLengthsDiffer" );
+
+            int v = this.m_array[i] & value.m_array[i];
+            return (v > 0 || (v & int.MinValue) == int.MinValue);
+        }
+
+        public int[] GetValueIndexes()
+        {
+            List<int> indexes = new List<int>();
+            int max = (this.m_length + 0x1f) / 0x20;
+            for( int i = 0; i < max; i++ )
+                if( this.m_array[i] != 0 )
+                    indexes.Add( i );
+
+            return indexes.ToArray();
+        }
+        public bool MatchedAt(BitArray value, int[] indexes)
+        {
+            if( value == null )
+                throw new ArgumentNullException( "value" );
+            if( this.m_length != value.m_length )
+                throw new ArgumentException( "Arg_ArrayLengthsDiffer" );
+
+            bool haveMatch = false;
+            for( int i = 0; i < indexes.Length; i++ )
+            {
+                //if the 32nd bit of the array is set to 1, test for int.MinValue
+                int bit = indexes[i];
+                int v = this.m_array[bit] & value.m_array[bit];
+                if( v > 0 || (v & int.MinValue) == int.MinValue )
+                {
+                    haveMatch = true;
+                    break;
+                }
+            }
+            return haveMatch;
+        }
+
+        public bool MatchedAt10(BitArray value, int[] indexes)
+        {
+            if( value == null )
+                throw new ArgumentNullException( "value" );
+            if( this.m_length != value.m_length )
+                throw new ArgumentException( "Arg_ArrayLengthsDiffer" );
+
+            bool match = false;
+            for( int i = 1; i < 5; i++ )
+            {
+                match = this.MatchesAt( value, indexes[i * 0] ) ||
+                    this.MatchesAt( value, indexes[i * 1] ) ||
+                    this.MatchesAt( value, indexes[i * 2] ) ||
+                    this.MatchesAt( value, indexes[i * 3] ) ||
+                    this.MatchesAt( value, indexes[i * 4] ) ||
+                    this.MatchesAt( value, indexes[i * 5] ) ||
+                    this.MatchesAt( value, indexes[i * 6] ) ||
+                    this.MatchesAt( value, indexes[i * 7] ) ||
+                    this.MatchesAt( value, indexes[i * 8] ) ||
+                    this.MatchesAt( value, indexes[i * 9] );
+                if( match )
+                    break;
+            }
+
+            return match;
+        }
+        bool MatchesAt(BitArray cmp, int i)
+        {
+            int v = this.m_array[i] & cmp.m_array[i];
+            return (v > 0 || (v & int.MinValue) == int.MinValue);
+        }
+
+        public object Clone()
 		{
 			return new BitArray( this.m_array ) { _version = this._version, m_length = this.m_length };
 		}
@@ -612,4 +714,13 @@ namespace Suplex.BitLib
 			}
 		}
 	}
+
+    //public static class Extension
+    //{
+    //    public static bool MatchesAt(this BitArray src, BitArray cmp, int i)
+    //    {
+    //        int v = src.m_array[i] & cmp.m_array[i];
+    //        return (v > 0 || (v & int.MinValue) == int.MinValue);
+    //    }
+    //}
 }
