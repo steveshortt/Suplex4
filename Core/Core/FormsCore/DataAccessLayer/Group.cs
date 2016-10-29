@@ -10,6 +10,8 @@ using sf = Suplex.Forms;
 using sg = Suplex.General;
 using ss = Suplex.Security;
 
+using settings = Suplex.Properties.Settings;
+
 namespace Suplex.Forms.ObjectModel.Api
 {
 	public partial class SuplexDataAccessLayer
@@ -324,7 +326,7 @@ namespace Suplex.Forms.ObjectModel.Api
 
 		private SortedList GetGroupInputParms(Group group)
 		{
-			int _maskSize = 2048;
+			int _maskSize = settings.Default.RlsMaskSize;
 
 			sSortedList s = new sSortedList();	//"@GROUP_NAME", group.Name
 			s.Add( "@GROUP_DESC", group.Description );

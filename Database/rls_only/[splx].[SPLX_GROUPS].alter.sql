@@ -1,5 +1,5 @@
 
 
 ALTER TABLE [splx].[SPLX_GROUPS]
-ALTER COLUMN [GROUP_MASK] binary(256)
+ALTER COLUMN [GROUP_MASK] varbinary(max)
 go

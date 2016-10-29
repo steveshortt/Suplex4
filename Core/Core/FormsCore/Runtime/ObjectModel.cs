@@ -22,6 +22,8 @@ using sg = Suplex.General;
 using ss = Suplex.Security;
 using st = Suplex.Security.Standard;
 
+using settings = Suplex.Properties.Settings;
+
 
 
 //the below classes represent SuplexApp-UI-friendly structrures:
@@ -4172,7 +4174,7 @@ namespace Suplex.Forms.ObjectModel.Legacy
 		private bool _showDetailPanels = false;
 		private bool _enableChildGroupsLazyLoad = false;
 
-		private int _maskSize = 2048;
+		private int _maskSize = settings.Default.RlsMaskSize;
 		private BitArray _mask = null;
 
 		public Group()
@@ -4482,7 +4484,7 @@ namespace Suplex.Forms.ObjectModel.Legacy
 
 	public class GroupCollection : ObservableObjectModelCollection<Group>
 	{
-		private int _maskSize = 2048;
+		private int _maskSize = settings.Default.RlsMaskSize;
 		private BitArray _allMasks = null;
 
 		public GroupCollection()

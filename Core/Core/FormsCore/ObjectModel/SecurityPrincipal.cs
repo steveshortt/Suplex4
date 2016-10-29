@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using sg = Suplex.General;
 using st = Suplex.Security.Standard;
 
+using settings = Suplex.Properties.Settings;
 
 namespace Suplex.Forms.ObjectModel.Api
 {
@@ -352,8 +353,8 @@ namespace Suplex.Forms.ObjectModel.Api
 		private bool _showDetailPanels = false;
 		private bool _enableChildGroupsLazyLoad = false;
 
-		private int _defaultMaskSize = 2048;
-		private int _maskSize = 2048;
+		private int _defaultMaskSize = settings.Default.RlsMaskSize;
+		private int _maskSize = settings.Default.RlsMaskSize;
 		private BitArray _mask = null;
 
 		public Group()
@@ -627,7 +628,7 @@ namespace Suplex.Forms.ObjectModel.Api
 	[CollectionDataContract()]
 	public class GroupCollection : ObservableObjectModelCollection<Group>
 	{
-		private int _maskSize = 2048;
+		private int _maskSize = settings.Default.RlsMaskSize;
 		private BitArray _allMasks = null;
 
 		public GroupCollection()
