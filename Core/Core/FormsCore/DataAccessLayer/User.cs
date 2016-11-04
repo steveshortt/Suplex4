@@ -46,8 +46,17 @@ namespace Suplex.Forms.ObjectModel.Api
 			return list;
 		}
 
-		#region upsert
-		public User UpsertUser(User user, List<Group> addedGroupMembership, List<Group> removedGroupMembership)
+        public List<User> GetUserList()
+        {
+            List<User> users = new List<User>();
+            DataSet ds = _da.GetDataSet( "splx.splx_api_sel_users", null );
+            UserFactory userFactory = new UserFactory();
+            users.LoadSuplexObjectTable( ds.Tables[0], userFactory, null, null );
+            return users;
+        }
+
+        #region upsert
+        public User UpsertUser(User user, List<Group> addedGroupMembership, List<Group> removedGroupMembership)
 		{
 			SortedList inparms = this.GetUserInputParms( user );
 			SortedList outparms = this.GetUserOutputParms( user );

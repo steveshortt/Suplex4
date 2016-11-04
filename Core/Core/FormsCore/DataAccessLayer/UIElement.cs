@@ -13,8 +13,21 @@ namespace Suplex.Forms.ObjectModel.Api
 {
 	public partial class SuplexDataAccessLayer
 	{
-		#region get
-		public UIElement GetUIElementByIdShallow(string id)
+        #region get
+        public List<UIElement> GetUIElementList()
+        {
+            List<UIElement> uielements = new List<Api.UIElement>();
+            DataSet ds = _da.GetDataSet( "splx.splx_api_sel_uielementbyparent_composite",
+                new sSortedList( "@UIE_PARENT_ID", Convert.DBNull ) );
+            _da.NameTablesFromCompositeSelect( ref ds );
+
+            UIElementFactory uieFactory = new UIElementFactory();
+            uielements.LoadSuplexObjectTable( ds.Tables["UIElements"], uieFactory, null, null );
+
+            return uielements;
+        }
+
+        public UIElement GetUIElementByIdShallow(string id)
 		{
 			DataSet ds = _da.GetDataSet( "splx.splx_api_sel_uielementbyid_composite",
 				new sSortedList( "@SPLX_UI_ELEMENT_ID", id ) );

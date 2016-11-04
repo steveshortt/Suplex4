@@ -341,7 +341,48 @@ namespace Suplex.Forms.ObjectModel.Api
 		public string RemovedGroupMembership { get; set; }
 	}
 
-	[DataContract()]
+    public abstract class UpsertData<T>
+    {
+        public abstract List<T> GetAddedMembership();
+        public abstract List<T> GetRemovedMembership();
+
+        protected List<T> GetSecurityPrincipalList<T>(List<Guid> groupList, List<Guid> userList = null) where T : SecurityPrincipalBase
+        {
+            List<T> list = new List<T>();
+
+            foreach( Guid uid in groupList )
+                list.Add( new Group() { Id = uid.ToString() } as T );
+
+            if( userList != null )
+                foreach( Guid uid in userList )
+                    list.Add( new User() { Id = uid.ToString() } as T );
+
+            return list;
+        }
+    }
+
+    [DataContract()]
+    public class UserUpsertData : UpsertData<Group>
+    {
+        [DataMember]
+        public User User { get; set; }
+        [DataMember]
+        public List<Guid> AddedGroupMembershipGroupUIds { get; set; }
+        [DataMember]
+        public List<Guid> RemovedGroupMembershipGroupUIds { get; set; }
+
+        override public List<Group> GetAddedMembership()
+        {
+            return GetSecurityPrincipalList<Group>( AddedGroupMembershipGroupUIds, null );
+        }
+
+        override public List<Group> GetRemovedMembership()
+        {
+            return GetSecurityPrincipalList<Group>( RemovedGroupMembershipGroupUIds, null );
+        }
+    }
+
+    [DataContract()]
 	public class Group : SecurityPrincipalBase, IObjectModel, ICloneable<Group>, INodeItem, ISuplexObject
 	{
 		private GroupCollection _groups = null;
@@ -765,7 +806,32 @@ namespace Suplex.Forms.ObjectModel.Api
 		public string RemovedGroupMembership { get; set; }
 	}
 
-	public class GroupMembershipItem
+    [DataContract()]
+    public class GroupUpsertData : UpsertData<SecurityPrincipalBase>
+    {
+        [DataMember]
+        public Group Group { get; set; }
+        [DataMember]
+        public List<Guid> AddedGroupMembershipGroupUIds { get; set; }
+        [DataMember]
+        public List<Guid> RemovedGroupMembershipGroupUIds { get; set; }
+        [DataMember]
+        public List<Guid> AddedGroupMembershipUserUIds { get; set; }
+        [DataMember]
+        public List<Guid> RemovedGroupMembershipUserUIds { get; set; }
+
+        override public List<SecurityPrincipalBase> GetAddedMembership()
+        {
+            return GetSecurityPrincipalList<SecurityPrincipalBase>( AddedGroupMembershipGroupUIds, AddedGroupMembershipUserUIds );
+        }
+
+        override public List<SecurityPrincipalBase> GetRemovedMembership()
+        {
+            return GetSecurityPrincipalList<SecurityPrincipalBase>( RemovedGroupMembershipGroupUIds, RemovedGroupMembershipUserUIds );
+        }
+    }
+
+    public class GroupMembershipItem
 	{
 		public GroupMembershipItem() { }
 		public GroupMembershipItem(Group group, SecurityPrincipalBase member)

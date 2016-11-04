@@ -1,0 +1,15 @@
+drop_maint.sql
+[Splx_BitLib].sql
+[splx].[SPLX_GROUPS].alter.sql
+[splx].[splx_api_sel_groupmembbyuser].sql
+[splx].[splx_api_sel_groupnestmembbygroup].sql
+[splx].[splx_api_upsert_group].sql
+[splx].[splx_dal_sel_security_byuserbyuie].sql
+[splx].[splx_dal_sel_userbyid].sql
+[splx].[splx_dal_sel_userbyname].sql
+[SPLX].[Splx_ContainsOne].sql
+[SPLX].[Splx_GetTableOr].sql
+[SPLX].[Splx_And].sql
+[SPLX].[Splx_Not].sql
+[SPLX].[Splx_Or].sql
+[SPLX].[Splx_Xor].sql
