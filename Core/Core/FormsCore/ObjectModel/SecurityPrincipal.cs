@@ -341,17 +341,18 @@ namespace Suplex.Forms.ObjectModel.Api
 		public string RemovedGroupMembership { get; set; }
 	}
 
-    public abstract class UpsertData<T>
+    public abstract class UpsertData<T> where T : SecurityPrincipalBase
     {
         public abstract List<T> GetAddedMembership();
         public abstract List<T> GetRemovedMembership();
 
-        protected List<T> GetSecurityPrincipalList<T>(List<Guid> groupList, List<Guid> userList = null) where T : SecurityPrincipalBase
+        protected List<T> GetSecurityPrincipalList(List<Guid> groupList, List<Guid> userList = null)
         {
             List<T> list = new List<T>();
 
-            foreach( Guid uid in groupList )
-                list.Add( new Group() { Id = uid.ToString() } as T );
+            if( groupList != null )
+                foreach( Guid uid in groupList )
+                    list.Add( new Group() { Id = uid.ToString() } as T );
 
             if( userList != null )
                 foreach( Guid uid in userList )
@@ -373,12 +374,12 @@ namespace Suplex.Forms.ObjectModel.Api
 
         override public List<Group> GetAddedMembership()
         {
-            return GetSecurityPrincipalList<Group>( AddedGroupMembershipGroupUIds, null );
+            return GetSecurityPrincipalList( AddedGroupMembershipGroupUIds, null );
         }
 
         override public List<Group> GetRemovedMembership()
         {
-            return GetSecurityPrincipalList<Group>( RemovedGroupMembershipGroupUIds, null );
+            return GetSecurityPrincipalList( RemovedGroupMembershipGroupUIds, null );
         }
     }
 
@@ -822,12 +823,12 @@ namespace Suplex.Forms.ObjectModel.Api
 
         override public List<SecurityPrincipalBase> GetAddedMembership()
         {
-            return GetSecurityPrincipalList<SecurityPrincipalBase>( AddedGroupMembershipGroupUIds, AddedGroupMembershipUserUIds );
+            return GetSecurityPrincipalList( AddedGroupMembershipGroupUIds, AddedGroupMembershipUserUIds );
         }
 
         override public List<SecurityPrincipalBase> GetRemovedMembership()
         {
-            return GetSecurityPrincipalList<SecurityPrincipalBase>( RemovedGroupMembershipGroupUIds, RemovedGroupMembershipUserUIds );
+            return GetSecurityPrincipalList( RemovedGroupMembershipGroupUIds, RemovedGroupMembershipUserUIds );
         }
     }
 
