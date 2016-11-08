@@ -106,6 +106,13 @@ namespace Suplex.Forms.ObjectModel.Api
 			}
 		}
 
+        [DataMember()]
+        public int AceRight
+        {
+            get { return (int)Right; }
+            set { Right = value; }
+        }
+
 		[XmlAttribute()]
 		[DataMember()]
 		public bool Allowed
@@ -418,6 +425,7 @@ namespace Suplex.Forms.ObjectModel.Api
 			: this()
 		{
 			this.iRight = right;
+            //this.AceRight = right;
 			this.Allowed = allowed;
 		}
 
@@ -430,8 +438,16 @@ namespace Suplex.Forms.ObjectModel.Api
 			set { base.Right = value; }
 		}
 
-		#region ICloneable Members
-		public override object Clone()
+        //to cover json serialization
+        //[DataMember]
+        //public T AceRight
+        //{
+        //    get { return (T)base.Right; }
+        //    set { base.Right = value; }
+        //}
+
+        #region ICloneable Members
+        public override object Clone()
 		{
 			AccessControlEntry<T> ace = new AccessControlEntry<T>();
 			ss.AceCloner.Clone( this, ace );
