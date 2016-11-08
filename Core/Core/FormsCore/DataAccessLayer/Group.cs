@@ -361,8 +361,25 @@ namespace Suplex.Forms.ObjectModel.Api
 		{
 			_da.ExecuteSP( "splx.splx_api_del_group", new sSortedList( "@SPLX_GROUP_ID", id ) );
 		}
-		#endregion
-	}
+        #endregion
+
+        public BitArray GetNextGroupMask()
+        {
+            DataSet ds = _da.GetDataSet( "splx.splx_api_sel_groups", null );
+            GroupCollection groups = new GroupCollection();
+            GroupFactory groupFactory = new GroupFactory();
+            groups.LoadSuplexObjectTable( ds.Tables[0], groupFactory, null, null );
+            return groups.GetNextMask();
+        }
+        public string GetNextGroupMaskValue()
+        {
+            Group g = new Group()
+            {
+                Mask = GetNextGroupMask()
+            };
+            return g.MaskValue;
+        }
+    }
 
 	public class GroupFactory : ISuplexObjectFactory<Group>, IEqualityComparer<Group>
 	{
