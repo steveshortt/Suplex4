@@ -113,8 +113,10 @@ namespace Suplex.Forms.ObjectModel.Api
 		#endregion
 
 		#region Upsert
-		public UIElement UpsertUIElement(UIElement uie)
+		public UIElement UpsertUIElement(UIElement uie, SqlTransaction trans = null)
 		{
+            bool haveTrans = trans != null;
+
 			SortedList inparms = this.GetUIElementParms( uie );
 
 			SqlParameter id = new SqlParameter( "@SPLX_UI_ELEMENT_ID", SqlDbType.UniqueIdentifier );
@@ -122,8 +124,10 @@ namespace Suplex.Forms.ObjectModel.Api
 			id.Direction = ParameterDirection.InputOutput;
 			SortedList outparms = new sSortedList( "@SPLX_UI_ELEMENT_ID", id );
 
-			_da.OpenConnection();
-			SqlTransaction tr = _da.Connection.BeginTransaction();
+            if( !haveTrans )
+                _da.OpenConnection();
+
+			SqlTransaction tr = haveTrans ? trans : _da.Connection.BeginTransaction();
 			try
 			{
 				_da.ExecuteSP( "splx.splx_api_upsert_uie", inparms, ref outparms, false, tr );
@@ -179,19 +183,21 @@ namespace Suplex.Forms.ObjectModel.Api
 
 				this.RecurseRightRoleRulesForUIElementUpsert( uie.Id, Guid.Empty, uie.SecurityDescriptor.RightRoleRules, ref tr );
 
+                if( !haveTrans )
+                    tr.Commit();
 
-				tr.Commit();
-
-				uie.IsDirty = false;
+                uie.IsDirty = false;
 			}
 			catch( Exception ex )
 			{
-				tr.Rollback();
+                if( !haveTrans )
+                    tr.Rollback();
 				throw ex;
 			}
 			finally
 			{
-				_da.CloseConnection();
+                if( !haveTrans )
+                    _da.CloseConnection();
 			}
 
 			return uie;

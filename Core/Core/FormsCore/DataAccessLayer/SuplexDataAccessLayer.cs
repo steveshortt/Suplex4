@@ -26,7 +26,12 @@ namespace Suplex.Forms.ObjectModel.Api
 			_da = new DataAccessor( connectionString );
 		}
 
-		public string ConnectionString
+        public SuplexDataAccessLayer(DataAccessor da)
+        {
+            _da = da;
+        }
+
+        public string ConnectionString
 		{
 			get { return _da.ConnectionString; }
 			set { _da.ConnectionString = value; }
