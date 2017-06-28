@@ -669,8 +669,9 @@ namespace Suplex.Forms
 				int num = (this.m_length + 0x1f) / 0x20;
 				for( int i = 0; i < num; i++ )
 				{
-					hasValue = this.m_array[i] > 0;
-					if( hasValue ) { break; }
+                    //if the 32nd bit of the array is set to 1, test for int.MinValue
+                    hasValue = this.m_array[i] != 0;
+                    if( hasValue ) { break; }
 				}
 				return hasValue;
 			}
